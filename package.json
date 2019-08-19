@@ -27,6 +27,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prebuild": "cd functions/graphql && yarn install",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
