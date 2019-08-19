@@ -1,46 +1,26 @@
-const { ApolloServer, gql } = require("apollo-server-lambda");
+const { ApolloServer, gql } = require("apollo-server-lambda")
+const sheetpoetry = require("./sheetpoetry")
 
+// Construct a schema, using GraphQL schema language
 const typeDefs = gql`
   type Query {
-    hello: String
-    allAuthors: [Author!]
-    author(id: Int!): Author
-    authorByName(name: String!): Author
+    sheetpoem(spreadsheetId: String!, range: String!, verses: Int): String
   }
-  type Author {
-    id: ID!
-    name: String!
-    married: Boolean!
-  }
-`;
+`
 
-const authors = [
-  { id: 1, name: "Terry Pratchett", married: false },
-  { id: 2, name: "Stephen King", married: true },
-  { id: 3, name: "JK Rowling", married: false }
-];
-
+// Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    hello: (root, args, context) => {
-      return "Hello, world!";
-    },
-    allAuthors: (root, args, context) => {
-      return authors;
-    },
-    author: (root, args, context) => {
-      return;
-    },
-    authorByName: (root, args, context) => {
-      console.log("hihhihi", args.name);
-      return authors.find(x => x.name === args.name) || "NOTFOUND";
-    }
-  }
-};
+    sheetpoem: async (root, { spreadsheetId, range, verses }, context) =>
+      await sheetpoetry(spreadsheetId, range, verses || 1),
+  },
+}
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
-});
+  resolvers,
+  introspection: true,
+  playground: true,
+})
 
-exports.handler = server.createHandler();
+exports.handler = server.createHandler()
