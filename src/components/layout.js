@@ -12,6 +12,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 import Scene from "./scene"
 import "./layout.css"
+import "orgdot-org-v01"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -26,7 +27,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Scene />
+      <Scene words="lala" />
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
