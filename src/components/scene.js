@@ -1,10 +1,22 @@
 import React from "react"
-import * as THREE from "three"
+import {
+  BoxGeometry,
+  DefaultLoadingManager,
+  DoubleSide,
+  Mesh,
+  MeshBasicMaterial,
+  ObjectLoader,
+  PerspectiveCamera,
+  PlaneGeometry,
+  PointLight,
+  Scene,
+  WebGLRenderer,
+} from "three"
 import TextTexture from "three.texttexture"
 
 import cumi from "./model.json"
 
-const Scene = props => {
+export default props => {
   const { useRef, useEffect, useState } = React
   const mount = useRef(null)
   const [isAnimating, setAnimating] = useState(true)
@@ -16,20 +28,20 @@ const Scene = props => {
     let frameId
 
     // scene setup
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    const scene = new Scene()
+    const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
+    const renderer = new WebGLRenderer({ antialias: true })
 
     // cube
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    const material = new THREE.MeshBasicMaterial({
+    const geometry = new BoxGeometry(1, 1, 1)
+    const material = new MeshBasicMaterial({
       color: 0xff00ff,
       wireframe: true,
     })
-    const cube = new THREE.Mesh(geometry, material)
+    const cube = new Mesh(geometry, material)
 
     // model
-    const model = new THREE.ObjectLoader().parse(cumi)
+    const model = new ObjectLoader().parse(cumi)
     model.scale.set(0.2, 0.2, 0.2)
     scene.add(model)
 
@@ -43,13 +55,13 @@ const Scene = props => {
       text:
         "Me siento un millonario\nAunque sea una gotita...\njamás serán vencidas\nun soldado sin segundo",
     })
-    let t3xtMaterial = new THREE.MeshBasicMaterial({
+    let t3xtMaterial = new MeshBasicMaterial({
       map: t3xtTexture,
       transparent: true,
-      side: THREE.DoubleSide,
+      side: DoubleSide,
     })
-    let t3xtGeometry = new THREE.PlaneGeometry(8, 4, 0)
-    let t3xt = new THREE.Mesh(t3xtGeometry, t3xtMaterial)
+    let t3xtGeometry = new PlaneGeometry(8, 4, 0)
+    let t3xt = new Mesh(t3xtGeometry, t3xtMaterial)
     t3xt.position.z = 3
     scene.add(t3xt)
 
@@ -63,20 +75,20 @@ const Scene = props => {
       text:
         "Me siento un millonario\nAunque sea una gotita...\njamás serán vencidas\nun soldado sin segundo",
     })
-    let lineT3xtMaterial = new THREE.MeshBasicMaterial({
+    let lineT3xtMaterial = new MeshBasicMaterial({
       map: lineT3xtTexture,
       transparent: true,
-      side: THREE.DoubleSide,
+      side: DoubleSide,
     })
-    let lineT3xtGeometry = new THREE.PlaneGeometry(8, 4, 0)
-    let lineT3xt = new THREE.Mesh(lineT3xtGeometry, lineT3xtMaterial)
+    let lineT3xtGeometry = new PlaneGeometry(8, 4, 0)
+    let lineT3xt = new Mesh(lineT3xtGeometry, lineT3xtMaterial)
     scene.add(lineT3xt)
 
     // lights
     const lights = [
-      new THREE.PointLight(0xffffff, 1, 0),
-      new THREE.PointLight(0xffffff, 1, 0),
-      new THREE.PointLight(0xffffff, 1, 0),
+      new PointLight(0xffffff, 1, 0),
+      new PointLight(0xffffff, 1, 0),
+      new PointLight(0xffffff, 1, 0),
     ]
     lights[0].position.set(0, 200, 0)
     lights[1].position.set(100, 200, 100)
@@ -90,7 +102,7 @@ const Scene = props => {
     renderer.setClearColor("#eeeeee")
     renderer.setSize(width, height)
 
-    THREE.DefaultLoadingManager.onLoad = function() {
+    DefaultLoadingManager.onLoad = function() {
       console.log("Loading Complete!")
     }
 
@@ -181,5 +193,3 @@ const Scene = props => {
     />
   )
 }
-
-export default Scene
