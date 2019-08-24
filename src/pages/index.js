@@ -4,7 +4,6 @@ import gql from "graphql-tag"
 import { Query } from "react-apollo"
 import { useApolloClient } from "@apollo/react-hooks"
 
-import Confirm from "../components/confirm"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -27,7 +26,6 @@ const IndexPage = () => {
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>
 
-      <Confirm />
       {
         // <Query
         // query={SHEETPOEM_QUERY}
