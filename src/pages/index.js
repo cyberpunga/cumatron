@@ -5,6 +5,8 @@ import { Query } from "react-apollo"
 import { useApolloClient } from "@apollo/react-hooks"
 
 import Layout from "../components/layout"
+import Scene from "../components/scene"
+import Confirm from "../components/confirm"
 import SEO from "../components/seo"
 
 const SHEETPOEM_QUERY = gql`
@@ -25,7 +27,8 @@ const IndexPage = () => {
       <h1>Hi people</h1>
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>
-
+      <Confirm />
+      <Scene words="lala" />
       {
         // <Query
         // query={SHEETPOEM_QUERY}
