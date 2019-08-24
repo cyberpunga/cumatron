@@ -22,6 +22,8 @@
     "react-apollo": "^3.0.1",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
+    "react-transition-group": "^4.2.2",
+    "styled-components": "^4.3.2",
     "three": "^0.107.0",
     "three.texttexture": "^20.0.0"
   },
