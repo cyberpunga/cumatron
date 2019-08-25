@@ -3,13 +3,7 @@ import { Transition } from "react-transition-group"
 import styled from "styled-components"
 
 const Confirmation = styled.div`
-  /* animation */
-  transition: 0.5s;
-  transform: translateY(
-    ${({ state }) =>
-      state === "entering" || state === "entered" ? 0 : -4000}px
-  );
-  /* defaults */
+  /* base style */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -18,16 +12,20 @@ const Confirmation = styled.div`
   background: rgba(2, 2, 2, 0.98);
   text-align: center;
   font-family: "Org_v01";
+  /* animation */
+  transition: 0.5s;
+  opacity: ${({ state }) => (state === "entered" ? 1 : 0)};
 `
 const Text = styled.div`
   color: #fefefe;
   text-align: justify;
-  padding: 100px 50px;
+  padding: 50px;
 `
 
 const Button = styled.button`
   background: rgba(0, 0, 0, 0);
   color: #fefefe;
+  margin-bottom: 50px;
 `
 
 export default () => {
@@ -35,7 +33,7 @@ export default () => {
   const handleClick = () => setVal(!val)
 
   return (
-    <Transition in={val} timeout={500} unmountOnExit>
+    <Transition in={val} timeout={500} unmountOnExit mountOnEnter>
       {state => (
         <Confirmation state={state}>
           <Text>hola *.*</Text>

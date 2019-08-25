@@ -4,9 +4,6 @@ import { Link } from "gatsby"
 // import { Query } from "react-apollo"
 // import { useApolloClient } from "@apollo/react-hooks"
 
-import Layout from "../components/layout"
-import Scene from "../components/scene"
-import Confirmation from "../components/confirm"
 import SEO from "../components/seo"
 
 // const SHEETPOEM_QUERY = gql`
@@ -22,13 +19,11 @@ import SEO from "../components/seo"
 const IndexPage = () => {
   // const client = useApolloClient()
   return (
-    <Layout>
+    <>
       <SEO title="hola" />
       <h1>Hi people</h1>
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>
-      <Confirmation />
-      <Scene words="lala" />
       {
         // <Query
         // query={SHEETPOEM_QUERY}
@@ -45,7 +40,7 @@ const IndexPage = () => {
         // </Query>
       }
       <Link to="/page-2/">Go to page 2</Link>
-    </Layout>
+    </>
   )
 }
 
