@@ -1,45 +1,45 @@
 import React /*, { useState } */ from "react"
-import { Link } from "gatsby"
-// import gql from "graphql-tag"
-// import { Query } from "react-apollo"
+import { Query } from "react-apollo"
+import gql from "graphql-tag"
 // import { useApolloClient } from "@apollo/react-hooks"
+import styled from "styled-components"
 
 import SEO from "../components/seo"
 
-// const SHEETPOEM_QUERY = gql`
-//   query {
-//     sheetpoem(
-//       spreadsheetId: "1qjgDw3TREpqQoSSbB0tzd0Joues1jraJix2mU52zToU"
-//       range: "A1:A1000"
-//       verses: 4
-//     )
-//   }
-// `
+const SHEETPOEM_QUERY = gql`
+  query {
+    sheetpoem(
+      spreadsheetId: "1qjgDw3TREpqQoSSbB0tzd0Joues1jraJix2mU52zToU"
+      range: "A1:A1000"
+      verses: 4
+    )
+  }
+`
+
+const Text = styled.div`
+  color: rgba(0, 0, 0, 0.99);
+  text-align: justify;
+  padding-top: 50px;
+`
 
 const IndexPage = () => {
   // const client = useApolloClient()
   return (
     <>
       <SEO title="hola" />
-      <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
       {
-        // <Query
-        // query={SHEETPOEM_QUERY}
-        // pollInterval={30 * 1000}
-        // onCompleted={({ sheetpoem }) =>
-        // client.writeData({ data: { lala: sheetpoem } })
-        // }
-        // >
-        // {({ data, loading, error }) => {
-        // if (loading) return <p>Loading...</p>
-        // if (error) return <p>Error: {error.message}</p>
-        // return <div>{data.sheetpoem}</div>
-        // }}
-        // </Query>
+        <Query
+          query={SHEETPOEM_QUERY}
+          // pollInterval={30 * 1000}
+          // onCompleted={({ sheetpoem }) => client.writeData({ data: { lala: sheetpoem } })}
+        >
+          {({ data, loading, error }) => {
+            if (loading) return <Text>Loading...</Text>
+            if (error) return <Text>Error: {error.message}</Text>
+            return <Text>{data.sheetpoem}</Text>
+          }}
+        </Query>
       }
-      <Link to="/page-2/">Go to page 2</Link>
     </>
   )
 }
