@@ -6,26 +6,28 @@ const telegraf = new Telegraf(process.env.BOT_TOKEN)
 const telegram = new Telegram(process.env.BOT_TOKEN)
 const wit = new TelegrafWit(process.env.WIT_TOKEN)
 
-telegraf.start(ctx => ctx.reply("Welcome!"))
-telegraf.help(ctx => ctx.reply("Send me a sticker"))
-telegraf.on("sticker", ctx => ctx.reply("👍"))
-telegraf.hears("hi", ctx => ctx.reply("Hey there"))
+telegraf.start(({ reply }) => reply("Welcome!"))
+telegraf.help(({ reply }) => reply("Send me a sticker"))
+telegraf.on("sticker", ({ reply }) => reply("👍"))
+telegraf.hears("hi", ({ reply }) => reply("Hey there"))
 
-telegraf.on("text", ctx => {
-  return wit.meaning(ctx.message.text).then(result => {
+telegraf.on("text", ({ message, reply }) => {
+  console.log("message: " + message)
+  return wit.meaning(message.text).then(result => {
+    console.log("result: " + result)
     // reply to user with wit result
     const { intent } = result.entities
     if (intent) {
       switch (intent[0].value) {
         case "greeting":
-          ctx.reply("Hola")
+          reply("Hola")
           break
         case "goodbye":
-          ctx.reply("chao")
+          reply("Chao")
           break
         // The bot didn't understand
         case "UNK":
-          ctx.reply("What?")
+          reply("What?")
           break
       }
     }
