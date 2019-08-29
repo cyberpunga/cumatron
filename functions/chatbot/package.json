@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "telegraf": "^3.32.0"
+    "telegraf": "^3.32.0",
+    "telegraf-wit": "^2.1.0"
   }
 }
