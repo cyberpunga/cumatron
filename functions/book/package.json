@@ -1,0 +1,26 @@
+{
+  "name": "book",
+  "version": "1.0.0",
+  "description": "Generate PDF files with pdfkit",
+  "main": "book.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "netlify",
+    "serverless",
+    "js",
+    "pdfkit"
+  ],
+  "author": "@piducancore",
+  "license": "MIT",
+  "dependencies": {
+    "base64-stream": "^1.0.0",
+    "chance": "^1.0.18",
+    "cloudinary": "^1.14.0",
+    "graphql-request": "^1.8.2",
+    "jimp": "^0.6.4",
+    "lodash": "^4.17.15",
+    "pdfkit": "^0.10.0"
+  }
+}
