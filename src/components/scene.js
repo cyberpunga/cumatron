@@ -1,6 +1,5 @@
-import React from "react"
+import React, { useRef, useEffect, useState } from "react"
 import {
-  BoxGeometry,
   DefaultLoadingManager,
   DoubleSide,
   Mesh,
@@ -17,10 +16,16 @@ import TextTexture from "three.texttexture"
 import cumi from "./model.json"
 
 export default props => {
-  const { useRef, useEffect, useState } = React
   const mount = useRef(null)
-  const [isAnimating, setAnimating] = useState(true)
+  const [words, setWords] = useState(props.words)
+
   const controls = useRef(null)
+
+  useEffect(() => {
+    if (props.words !== words) {
+      setWords(props.words)
+    }
+  }, [props.words])
 
   useEffect(() => {
     let width = mount.current.clientWidth
@@ -32,14 +37,6 @@ export default props => {
     const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
     const renderer = new WebGLRenderer({ antialias: true })
 
-    // cube
-    const geometry = new BoxGeometry(1, 1, 1)
-    const material = new MeshBasicMaterial({
-      color: 0xff00ff,
-      wireframe: true,
-    })
-    const cube = new Mesh(geometry, material)
-
     // model
     const model = new ObjectLoader().parse(cumi)
     model.scale.set(0.2, 0.2, 0.2)
@@ -50,39 +47,45 @@ export default props => {
       fontFamily: "Org_v01",
       fontSize: 90,
       strokeStyle: "rgba(255,255,255,0)",
-      fillStyle: "rgba(100,100,100,0.5)",
+      fillStyle: "rgba(100,100,100,0.9)",
       strokeWidth: 1 / 100,
-      text:
-        "Me siento un millonario\nAunque sea una gotita...\njamás serán vencidas\nun soldado sin segundo",
+      text: "",
     })
     let t3xtMaterial = new MeshBasicMaterial({
       map: t3xtTexture,
       transparent: true,
       side: DoubleSide,
     })
-    let t3xtGeometry = new PlaneGeometry(8, 4, 0)
+    let t3xtGeometry = new PlaneGeometry(6, 6, 6)
     let t3xt = new Mesh(t3xtGeometry, t3xtMaterial)
-    t3xt.position.z = 3
     scene.add(t3xt)
 
-    // lineT3xt
-    let lineT3xtTexture = new TextTexture({
+    // lin3
+    let lin3Texture = new TextTexture({
       fontFamily: "Org_v01",
       fontSize: 90,
       strokeStyle: "rgba(100,100,100,1)",
       fillStyle: "rgba(255,255,255,0)",
       strokeWidth: 1 / 100,
-      text:
-        "Me siento un millonario\nAunque sea una gotita...\njamás serán vencidas\nun soldado sin segundo",
+      text: "",
     })
-    let lineT3xtMaterial = new MeshBasicMaterial({
-      map: lineT3xtTexture,
+    let lin3Material = new MeshBasicMaterial({
+      map: lin3Texture,
       transparent: true,
       side: DoubleSide,
     })
-    let lineT3xtGeometry = new PlaneGeometry(8, 4, 0)
-    let lineT3xt = new Mesh(lineT3xtGeometry, lineT3xtMaterial)
-    scene.add(lineT3xt)
+    let lin3Geometry = new PlaneGeometry(6, 6, 6)
+    let lin3 = new Mesh(lin3Geometry, lin3Material)
+    lin3.position.z = 3
+
+    scene.add(lin3)
+
+    const updateMeshScale = () => {
+      const lala1 = t3xtMaterial.map.image.height / t3xtMaterial.map.image.width
+      const lala2 = lin3Material.map.image.height / lin3Material.map.image.width
+      t3xt.scale.set(1, lala1, 1)
+      lin3.scale.set(1, lala2, 1)
+    }
 
     // lights
     const lights = [
@@ -98,7 +101,7 @@ export default props => {
     scene.add(lights[2])
 
     camera.position.z = 4
-    scene.add(cube)
+    // scene.add(cube)
     renderer.setClearColor("#eeeeee")
     renderer.setSize(width, height)
 
@@ -108,6 +111,7 @@ export default props => {
 
     const renderScene = () => {
       renderer.render(scene, camera)
+      updateMeshScale()
     }
 
     const handleResize = () => {
@@ -120,10 +124,6 @@ export default props => {
     }
 
     const animate = () => {
-      // rotate cube
-      cube.rotation.x += 0.01
-      cube.rotation.y += 0.01
-
       // animate model
       model.rotation.y += 0.08
       model.rotation.x += 0.04
@@ -135,8 +135,8 @@ export default props => {
         (Math.sin(frameId * 0.024) * Math.PI) / 2 - 5
 
       // update text
-      t3xt.material.map.text = props.words
-      lineT3xt.material.map.text = props.words
+      t3xt.material.map.text = words
+      lin3.material.map.text = words
 
       renderScene()
       frameId = window.requestAnimationFrame(animate)
@@ -164,19 +164,11 @@ export default props => {
       window.removeEventListener("resize", handleResize)
       mount.current.removeChild(renderer.domElement)
 
-      scene.remove(cube)
-      geometry.dispose()
-      material.dispose()
+      // scene.remove(cube)
+      // geometry.dispose()
+      // material.dispose()
     }
-  }, [])
-
-  useEffect(() => {
-    if (isAnimating) {
-      controls.current.start()
-    } else {
-      controls.current.stop()
-    }
-  }, [isAnimating])
+  }, [words])
 
   return (
     <div
@@ -189,7 +181,6 @@ export default props => {
         zIndex: -1,
       }}
       ref={mount}
-      onClick={() => setAnimating(!isAnimating)}
     />
   )
 }

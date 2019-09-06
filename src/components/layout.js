@@ -11,8 +11,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import { Transition } from "react-transition-group"
 import styled from "styled-components"
 
-import Scene from "./scene"
-
 import "./layout.css"
 import "orgdot-org-v01"
 
@@ -41,7 +39,7 @@ const Confirmation = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: #000000;
   text-align: center;
   font-family: "Org_v01";
   /* animation */
@@ -126,7 +124,6 @@ export default ({ children }) => {
         )}
       </Transition>
       <Main>{children}</Main>
-      <Scene words="lala" />
     </Layout>
   )
 }

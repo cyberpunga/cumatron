@@ -2,8 +2,8 @@ import React /*, { useState } */ from "react"
 import { Query } from "react-apollo"
 import gql from "graphql-tag"
 // import { useApolloClient } from "@apollo/react-hooks"
-import styled from "styled-components"
 
+import Scene from "../components/scene"
 import SEO from "../components/seo"
 
 const SHEETPOEM_QUERY = gql`
@@ -16,30 +16,26 @@ const SHEETPOEM_QUERY = gql`
   }
 `
 
-const Text = styled.div`
-  color: rgba(0, 0, 0, 0.99);
-  text-align: justify;
-  padding-top: 50px;
-`
-
 const IndexPage = () => {
   // const client = useApolloClient()
   return (
     <>
       <SEO title="hola" />
-      {
-        <Query
-          query={SHEETPOEM_QUERY}
-          // pollInterval={30 * 1000}
-          // onCompleted={({ sheetpoem }) => client.writeData({ data: { lala: sheetpoem } })}
-        >
-          {({ data, loading, error }) => {
-            if (loading) return <Text>Loading...</Text>
-            if (error) return <Text>Error: {error.message}</Text>
-            return <Text>{data.sheetpoem}</Text>
-          }}
-        </Query>
-      }
+      <Query
+        query={SHEETPOEM_QUERY}
+        pollInterval={30 * 1000}
+        // onCompleted={({ sheetpoem }) => client.writeData({ data: { lala: sheetpoem } })}
+      >
+        {({ data, loading, error }) => {
+          if (loading) return <div>Loading...</div>
+          if (error) return <div>Error: {error.message}</div>
+          return (
+            <>
+              <Scene words={data.sheetpoem} />
+            </>
+          )
+        }}
+      </Query>
     </>
   )
 }
