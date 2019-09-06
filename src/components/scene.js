@@ -12,10 +12,13 @@ import {
   WebGLRenderer,
 } from "three"
 import TextTexture from "three.texttexture"
+import { useApolloClient } from "@apollo/react-hooks"
 
 import cumi from "./model.json"
 
 export default props => {
+  const client = useApolloClient()
+
   const mount = useRef(null)
   const [words, setWords] = useState(props.words)
 
@@ -107,6 +110,7 @@ export default props => {
 
     DefaultLoadingManager.onLoad = function() {
       console.log("Loading Complete!")
+      client.writeData({ data: { isLoaded: true } })
     }
 
     const renderScene = () => {
