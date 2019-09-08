@@ -8,6 +8,8 @@ const cache = new InMemoryCache()
 cache.writeData({
   data: {
     isLoaded: false,
+    canSpeak: false,
+    words: "...",
   },
 })
 
@@ -18,6 +20,8 @@ const link = new HttpLink({
 const typeDefs = gql`
   extend type Query {
     isLoaded: Boolean!
+    canSpeak: Boolean!
+    words: String!
   }
 `
 

@@ -5,6 +5,7 @@ import gql from "graphql-tag"
 const IS_LOADED = gql`
   query IsLoaded {
     isLoaded @client
+    canSpeak @client
   }
 `
 
@@ -12,15 +13,14 @@ export default ({ children }) => {
   const { data } = useQuery(IS_LOADED)
   const client = useApolloClient()
   return (
-    <>
-      <div>{data.isLoaded ? "false" : "true"}</div>
-      <button
-        onClick={() => {
-          client.writeData({ data: { isLoaded: !data.isLoaded } })
-        }}
-      >
-        {children}
-      </button>
-    </>
+    <button
+      disabled={!data.isLoaded}
+      onClick={() => {
+        client.writeData({ data: { canSpeak: !data.canSpeak } })
+      }}
+    >
+      {// children
+      `${data.isLoaded}`}
+    </button>
   )
 }
