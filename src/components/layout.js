@@ -76,11 +76,11 @@ export default ({ children }) => {
   return (
     <Layout>
       <Scene words={data.words} />
-
+      {!data.canSpeak && <Confirm title={site.siteMetadata.title} />}
       <Header>
         <Title>{site.siteMetadata.title || ""}</Title>
       </Header>
-      <Main>{data.canSpeak ? children : <Confirm />}</Main>
+      <Main>{children}</Main>
       <Footer>
         © {new Date().getFullYear()},{" "}
         <a href="https://cyberpun.ga">cyberpunga</a>
