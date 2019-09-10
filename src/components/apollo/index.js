@@ -9,7 +9,7 @@ cache.writeData({
   data: {
     isLoaded: false,
     canSpeak: false,
-    words: "...",
+    words: "",
   },
 })
 
