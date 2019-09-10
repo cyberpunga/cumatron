@@ -11,58 +11,45 @@ const IS_LOADED = gql`
 `
 
 const Confirm = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(250, 0, 0, 0.5);
+  background: #111111;
+  color: #eeeeee;
+  text-align: center;
 `
 
-const Header = styled.header`
-  /* background: rgba(2, 2, 2, 0.98); */
-  transition: 0.5s;
-  padding: 24px 48px;
-`
-
-const Title = styled.h1`
+const Text = styled.div`
+  font-family: Org_v01;
   text-align: justify;
-  transition: 0.5s;
-  z-index: 100;
-  margin: 0;
-  color: ${({ state }) =>
-    state === "entered" ? "#fefefe" : "rgba(0, 0, 0, 0.8)"};
-  text-decoration: none;
+  padding: 8px;
 `
 
-const Text = styled.p`
-  color: #ffffffff;
-  height: 100%;
-  padding: 0px 50px 10px 50px;
+const Button = styled.button`
+  background: transparent;
+  color: #eeeeee;
+  font-family: Org_v01;
+  font-size: 1.25em;
+  margin: 8px;
 `
+
 export default ({ children }) => {
   const { data } = useQuery(IS_LOADED)
   const client = useApolloClient()
   return (
     <Confirm>
-      <Header>
-        <Title>cumatron</Title>
-      </Header>
       <Text>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
         velit esse cillum dolore eu fugiat nulla pariatur.
-        <br />
-        <button
-          disabled={!data.isLoaded}
-          onClick={() => {
-            client.writeData({ data: { canSpeak: !data.canSpeak } })
-          }}
-        >
-          {// children
-          data.isLoaded ? "vamos!" : "loading..."}
-        </button>
       </Text>
+      <Button
+        disabled={!data.isLoaded}
+        onClick={() => {
+          client.writeData({ data: { canSpeak: !data.canSpeak } })
+        }}
+      >
+        {data.isLoaded ? "vamos!" : "loading..."}
+      </Button>
     </Confirm>
   )
 }

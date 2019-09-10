@@ -1,56 +1,27 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import styled from "styled-components"
 
-import "./layout.css"
 import "orgdot-org-v01"
+// import "./layout.css"
 
-import Confirm from "./confirm"
 import Scene from "../components/scene"
+import Heading from "../components/heading"
+import Main from "../components/main"
+import Footer from "../components/footer"
 
-const Layout = styled.div`
-  height: 100%;
-`
-const Header = styled.header`
-  /* background: rgba(2, 2, 2, 0.98); */
-  transition: 0.5s;
-  padding: 24px 48px;
-`
-const Title = styled.h1`
-  text-align: justify;
-  transition: 0.5s;
-  z-index: 100;
-  margin: 0;
-  color: ${({ state }) =>
-    state === "entered" ? "#fefefe" : "rgba(0, 0, 0, 0.8)"};
-  text-decoration: none;
-`
-
-const Main = styled.main`
-  height: 100%;
-  padding: 0px 50px 10px 50px;
-`
-const Footer = styled.footer`
-  text-align: center;
-  position: fixed;
-  /* left: 50%; */
-  width: 100%;
-  bottom: 10px;
-  transition: 0.5s;
-  /* transform: translateX(-50%); */
-  /* opacity: ${({ state }) => (state === "entered" ? 0 : 1)}; */
-  color: ${({ state }) =>
-    state === "entered" ? "#fefefe" : "rgba(0, 0, 0, 0.8)"};
+const SITE = graphql`
+  query SiteTitleQuery {
+    site {
+      siteMetadata {
+        title
+        author
+        author_url
+      }
+    }
+  }
 `
 
 const IS_LOADED = gql`
@@ -61,34 +32,31 @@ const IS_LOADED = gql`
   }
 `
 
+const Layout = styled.div`
+  max-width: 800px;
+  margin: auto;
+  padding: 8px;
+`
+
 export default ({ children }) => {
-  const { site } = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const {
+    site: {
+      siteMetadata: { title, author, author_url },
+    },
+  } = useStaticQuery(SITE)
   const { data } = useQuery(IS_LOADED)
 
   return (
     <Layout>
       <Scene words={data.words} />
-      {!data.canSpeak && <Confirm title={site.siteMetadata.title} />}
-      <Header>
-        <Title>{site.siteMetadata.title || ""}</Title>
-      </Header>
+
+      <Heading>{title}</Heading>
+
       <Main>{children}</Main>
+
       <Footer>
-        © {new Date().getFullYear()},{" "}
-        <a href="https://cyberpun.ga">cyberpunga</a>
+        © {new Date().getFullYear()}, <a href={author_url}>{author}</a>
       </Footer>
     </Layout>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 }

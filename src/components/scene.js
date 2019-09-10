@@ -183,6 +183,7 @@ export default props => {
         bottom: 0,
         left: 0,
         zIndex: -1,
+        // opacity: 0,
       }}
       ref={mount}
     />
