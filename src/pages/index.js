@@ -27,6 +27,11 @@ const IS_LOADED = gql`
 
 const Text = styled.p`
   font-family: Org_v01;
+  color: yellow;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  padding-bottom: 2em;
 `
 
 const IndexPage = () => {

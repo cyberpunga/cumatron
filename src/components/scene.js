@@ -10,13 +10,18 @@ import {
   PointLight,
   Scene,
   WebGLRenderer,
+  SphereBufferGeometry,
+  TextureLoader,
+  LinearFilter,
 } from "three"
+
 import TextTexture from "three.texttexture"
 import { useApolloClient } from "@apollo/react-hooks"
 import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
 import cumi from "./model.json"
+// import sky from "./TychoSkymapII.t5_04096x02048.jpg"
 
 const WORDS = gql`
   query Words {
@@ -38,7 +43,7 @@ export default () => {
     let height = mounted.clientHeight
     let frameId
     const scene = new Scene()
-    const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
+    const camera = new PerspectiveCamera(75, width / height, 0.1, 2000)
     const renderer = new WebGLRenderer({ antialias: true })
     // const geometry = new BoxGeometry(1, 1, 1)
     // const material = new MeshBasicMaterial({ color: 0xff00ff })
@@ -50,12 +55,29 @@ export default () => {
     model.scale.set(0.2, 0.2, 0.2)
     scene.add(model)
 
+    // sky
+    const skyGeometry = new SphereBufferGeometry(1800, 32, 32)
+    skyGeometry.scale(-1, 1, 1) // invert the geometry on the x-axis so that all of the faces point inward
+
+    const skyTexture = new TextureLoader().load(
+      "TychoSkymapII.t5_04096x02048.jpg"
+    )
+    skyTexture.minFilter = LinearFilter
+
+    const skyMaterial = new MeshBasicMaterial({
+      map: skyTexture,
+      side: DoubleSide,
+    })
+    const sphere = new Mesh(skyGeometry, skyMaterial)
+    console.log(sphere)
+    scene.add(sphere)
+
     // texts
     let t3xtTexture = new TextTexture({
       fontFamily: "Org_v01",
       fontSize: 90,
       strokeStyle: "rgba(255,255,255,0)",
-      fillStyle: "rgba(100,100,100,0.9)",
+      fillStyle: "#eeeeee",
       strokeWidth: 1 / 100,
       text: words,
     })
@@ -72,7 +94,7 @@ export default () => {
     let lin3Texture = new TextTexture({
       fontFamily: "Org_v01",
       fontSize: 90,
-      strokeStyle: "rgba(100,100,100,1)",
+      strokeStyle: "#eeeeee",
       fillStyle: "rgba(255,255,255,0)",
       strokeWidth: 1 / 100,
       text: words,
@@ -133,6 +155,8 @@ export default () => {
     const animate = () => {
       // cube.rotation.x += 0.01
       // cube.rotation.y += 0.01
+      sphere.rotation.y += 0.001
+      sphere.rotation.x = (Math.sin(frameId * 0.00032) * Math.PI) / 2 - 50
 
       // model rotation
       model.rotation.y += 0.08
