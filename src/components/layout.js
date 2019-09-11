@@ -1,13 +1,11 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag"
 import styled from "styled-components"
 
 import "orgdot-org-v01"
-// import "./layout.css"
 
 import Scene from "../components/scene"
+import Speak from "../components/speak"
 import Heading from "../components/heading"
 import Main from "../components/main"
 import Footer from "../components/footer"
@@ -24,14 +22,6 @@ const SITE = graphql`
   }
 `
 
-const IS_LOADED = gql`
-  query CanSpeak {
-    canSpeak @client
-    isLoaded @client
-    words @client
-  }
-`
-
 const Layout = styled.div`
   max-width: 800px;
   margin: auto;
@@ -44,16 +34,13 @@ export default ({ children }) => {
       siteMetadata: { title, author, author_url },
     },
   } = useStaticQuery(SITE)
-  const { data } = useQuery(IS_LOADED)
 
   return (
     <Layout>
-      <Scene words={data.words} />
-
+      <Scene />
+      <Speak />
       <Heading>{title}</Heading>
-
       <Main>{children}</Main>
-
       <Footer>
         © {new Date().getFullYear()}, <a href={author_url}>{author}</a>
       </Footer>

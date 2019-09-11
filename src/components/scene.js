@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useRef, useEffect } from "react"
 import {
   DefaultLoadingManager,
   DoubleSide,
@@ -13,32 +13,37 @@ import {
 } from "three"
 import TextTexture from "three.texttexture"
 import { useApolloClient } from "@apollo/react-hooks"
+import { useQuery } from "@apollo/react-hooks"
+import gql from "graphql-tag"
 
 import cumi from "./model.json"
 
-export default props => {
+const WORDS = gql`
+  query Words {
+    words @client
+  }
+`
+
+export default () => {
   const client = useApolloClient()
+  const {
+    data: { words },
+  } = useQuery(WORDS)
 
   const mount = useRef(null)
-  const [words, setWords] = useState(props.words)
-
-  const controls = useRef(null)
 
   useEffect(() => {
-    if (props.words !== words) {
-      setWords(props.words)
-    }
-  }, [props.words])
-
-  useEffect(() => {
-    let width = mount.current.clientWidth
-    let height = mount.current.clientHeight
+    const mounted = mount.current
+    let width = mounted.clientWidth
+    let height = mounted.clientHeight
     let frameId
-
-    // scene setup
     const scene = new Scene()
     const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
     const renderer = new WebGLRenderer({ antialias: true })
+    // const geometry = new BoxGeometry(1, 1, 1)
+    // const material = new MeshBasicMaterial({ color: 0xff00ff })
+    // const cube = new Mesh(geometry, material)
+    // scene.add(cube)
 
     // model
     const model = new ObjectLoader().parse(cumi)
@@ -52,7 +57,7 @@ export default props => {
       strokeStyle: "rgba(255,255,255,0)",
       fillStyle: "rgba(100,100,100,0.9)",
       strokeWidth: 1 / 100,
-      text: "",
+      text: words,
     })
     let t3xtMaterial = new MeshBasicMaterial({
       map: t3xtTexture,
@@ -70,7 +75,7 @@ export default props => {
       strokeStyle: "rgba(100,100,100,1)",
       fillStyle: "rgba(255,255,255,0)",
       strokeWidth: 1 / 100,
-      text: "",
+      text: words,
     })
     let lin3Material = new MeshBasicMaterial({
       map: lin3Texture,
@@ -80,7 +85,6 @@ export default props => {
     let lin3Geometry = new PlaneGeometry(6, 6, 6)
     let lin3 = new Mesh(lin3Geometry, lin3Material)
     lin3.position.z = 3
-
     scene.add(lin3)
 
     const updateMeshScale = () => {
@@ -104,12 +108,11 @@ export default props => {
     scene.add(lights[2])
 
     camera.position.z = 4
-    // scene.add(cube)
     renderer.setClearColor("#eeeeee")
     renderer.setSize(width, height)
 
-    DefaultLoadingManager.onLoad = function() {
-      console.log("Loading Complete!")
+    DefaultLoadingManager.onLoad = () => {
+      console.log("Loading complete!")
       client.writeData({ data: { isLoaded: true } })
     }
 
@@ -119,8 +122,8 @@ export default props => {
     }
 
     const handleResize = () => {
-      width = mount.current.clientWidth
-      height = mount.current.clientHeight
+      width = mounted.clientWidth
+      height = mounted.clientHeight
       renderer.setSize(width, height)
       camera.aspect = width / height
       camera.updateProjectionMatrix()
@@ -128,19 +131,20 @@ export default props => {
     }
 
     const animate = () => {
-      // animate model
+      // cube.rotation.x += 0.01
+      // cube.rotation.y += 0.01
+
+      // model rotation
       model.rotation.y += 0.08
       model.rotation.x += 0.04
+      // model translation
       model.position.x = 3 * Math.cos(frameId * 0.008)
       model.position.z = 3 * Math.sin(frameId * 0.008)
-      model.children[1].rotation.y =
-        (Math.sin(frameId * 0.032) * Math.PI) / 2 - 5
-      model.children[3].rotation.y =
-        (Math.sin(frameId * 0.024) * Math.PI) / 2 - 5
-
-      // update text
-      t3xt.material.map.text = words
-      lin3.material.map.text = words
+      // model doors
+      const doorA = model.children[1]
+      const doorB = model.children[3]
+      doorA.rotation.y = (Math.sin(frameId * 0.032) * Math.PI) / 2 - 5
+      doorB.rotation.y = (Math.sin(frameId * 0.024) * Math.PI) / 2 - 5
 
       renderScene()
       frameId = window.requestAnimationFrame(animate)
@@ -157,22 +161,21 @@ export default props => {
       frameId = null
     }
 
-    mount.current.appendChild(renderer.domElement)
+    mounted.appendChild(renderer.domElement)
     window.addEventListener("resize", handleResize)
     start()
-
-    controls.current = { start, stop }
 
     return () => {
       stop()
       window.removeEventListener("resize", handleResize)
-      mount.current.removeChild(renderer.domElement)
+      mounted.removeChild(renderer.domElement)
 
+      scene.remove(model)
       // scene.remove(cube)
       // geometry.dispose()
       // material.dispose()
     }
-  }, [words])
+  })
 
   return (
     <div
@@ -186,6 +189,7 @@ export default props => {
         // opacity: 0,
       }}
       ref={mount}
+      // onClick={() => setAnimating(!isAnimating)}
     />
   )
 }

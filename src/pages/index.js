@@ -3,6 +3,7 @@ import { Query } from "react-apollo"
 import { useApolloClient } from "@apollo/react-hooks"
 import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
+import styled from "styled-components"
 
 import SEO from "../components/seo"
 import Confirm from "../components/confirm"
@@ -24,6 +25,10 @@ const IS_LOADED = gql`
   }
 `
 
+const Text = styled.p`
+  font-family: Org_v01;
+`
+
 const IndexPage = () => {
   const client = useApolloClient()
   const { data } = useQuery(IS_LOADED)
@@ -36,14 +41,14 @@ const IndexPage = () => {
         <Query
           query={SHEETPOEM_QUERY}
           pollInterval={30 * 1000}
-          onCompleted={({ sheetpoem }) =>
+          onCompleted={({ sheetpoem }) => {
             client.writeData({ data: { words: sheetpoem } })
-          }
+          }}
         >
           {({ data, loading, error }) => {
-            if (loading) return <div>Loading...</div>
-            if (error) return <div>Error: {error.message}</div>
-            return <div>{data.sheetpoem}</div>
+            if (loading) return <Text>Loading...</Text>
+            if (error) return <Text>Error: {error.message}</Text>
+            return <Text>{data.sheetpoem}</Text>
           }}
         </Query>
       ) : (
