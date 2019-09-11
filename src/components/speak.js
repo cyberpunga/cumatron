@@ -5,6 +5,7 @@ import gql from "graphql-tag"
 const WORDS = gql`
   query Words {
     words @client
+    canSpeak @client
   }
 `
 
@@ -16,12 +17,14 @@ export default () => {
   }
 
   const {
-    data: { words },
+    data: { words, canSpeak },
   } = useQuery(WORDS)
 
   useEffect(() => {
-    speak(words)
-  }, [words])
+    if (canSpeak) {
+      speak(words)
+    }
+  })
 
-  return <div></div>
+  return <></>
 }

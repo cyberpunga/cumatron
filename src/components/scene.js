@@ -60,7 +60,8 @@ export default () => {
     skyGeometry.scale(-1, 1, 1) // invert the geometry on the x-axis so that all of the faces point inward
 
     const skyTexture = new TextureLoader().load(
-      "TychoSkymapII.t5_04096x02048.jpg"
+      "lala.png"
+      // "TychoSkymapII.t5_04096x02048.jpg"
     )
     skyTexture.minFilter = LinearFilter
 

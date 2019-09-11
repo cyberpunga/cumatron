@@ -32,6 +32,8 @@ const Text = styled.p`
   bottom: 0;
   text-align: center;
   padding-bottom: 2em;
+  left: 50%;
+  transform: translateX(-50%);
 `
 
 const IndexPage = () => {
