@@ -9,19 +9,17 @@ import SEO from "../components/seo"
 import Confirm from "../components/confirm"
 
 const SHEETPOEM_QUERY = gql`
-  query {
+  query Sheetpoem {
     sheetpoem(
       spreadsheetId: "1qjgDw3TREpqQoSSbB0tzd0Joues1jraJix2mU52zToU"
       range: "A1:A1000"
       verses: 4
-    )
+    ) @client
   }
 `
-const IS_LOADED = gql`
+const CAN_SPEAK = gql`
   query CanSpeak {
     canSpeak @client
-    isLoaded @client
-    words @client
   }
 `
 
@@ -38,11 +36,10 @@ const Text = styled.p`
 
 const IndexPage = () => {
   const client = useApolloClient()
-  const { data } = useQuery(IS_LOADED)
+  const { data } = useQuery(CAN_SPEAK)
 
   return (
     <>
-      {console.log(data)}
       <SEO title="..." />
       {data.canSpeak ? (
         <Query

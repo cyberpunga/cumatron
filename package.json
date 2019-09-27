@@ -19,6 +19,8 @@
     "gatsby-transformer-sharp": "^2.2.14",
     "graphql": "^14.5.4",
     "isomorphic-fetch": "^2.2.1",
+    "lodash.random": "^3.2.0",
+    "lodash.times": "^4.3.2",
     "orgdot-org-v01": "^1.1.3",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -39,7 +41,6 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prebuild": "cd functions/graphql && yarn install && cd ../book && yarn install && cd ../chatbot && yarn install",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
