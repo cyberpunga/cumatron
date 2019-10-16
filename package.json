@@ -27,6 +27,7 @@
     "react-helmet": "^5.2.1",
     "react-transition-group": "^4.3.0",
     "styled-components": "^4.3.2",
+    "styled-icons": "^8.4.2",
     "three": "^0.108.0",
     "three-orbit-controls": "^82.1.0",
     "three.texttexture": "^20.0.0"
