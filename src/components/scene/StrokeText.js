@@ -5,7 +5,7 @@ import { useThree } from "../ThreeJSManager/"
 import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
-const Text = () => {
+const StrokeText = () => {
   const WORDS = gql`
     query Words {
       words @client
@@ -20,8 +20,8 @@ const Text = () => {
     let texture = new TextTexture({
       fontFamily: "Org_v01",
       fontSize: 160,
-      strokeStyle: "rgba(255,255,255,0)",
-      fillStyle: "#eeeeee",
+      strokeStyle: "#eeeeee",
+      fillStyle: "rgba(255,255,255,0)",
       strokeWidth: 1 / 100,
       text: words,
     })
@@ -32,9 +32,10 @@ const Text = () => {
       side: THREE.DoubleSide,
     })
 
-    let geometry = new THREE.PlaneGeometry(60, 60, 60)
+    let geometry = new THREE.PlaneGeometry(480, 480, 480)
 
     let text = new THREE.Mesh(geometry, material)
+    text.position.z = -10
     scene.add(text)
 
     return text
@@ -55,9 +56,12 @@ const Text = () => {
       },
     } = text
     text.scale.set(1, image.height / image.width, 1)
-  }, [timer])
+    text.position.z = Math.sin(timer * 0.00032) * Math.PI
+    const lala = Math.random() * 200
+    text.material.map._strokeStyle = `rgba(${lala},0,${lala},${lala})`
+  })
 
   return null
 }
 
-export default Text
+export default StrokeText
