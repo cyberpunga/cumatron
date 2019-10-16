@@ -10,7 +10,7 @@ const Sky = () => {
 
     const skyTexture = new THREE.TextureLoader().load(
       // 'TychoSkymapII.t5_04096x02048.jpg',
-      "small.png"
+      "/small.png"
     )
     skyTexture.minFilter = THREE.LinearFilter
 
