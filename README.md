@@ -63,3 +63,4 @@ _Esta es la rama `offline` de [cumatron](https://cumatron.win), diseñada para e
 - Puedes encontrar a cumi❤️ en [Twitter](https://twitter.com/cumatron_win) y en [Facebook](https://facebook.com/cumatron.win).
 - Tambien puedes hablarle en [Telegram](http://telegram.me/cumatron_bot).
 - Y visitar el sitio web: [https://cumatron.win](https://cumatron.win).
+- [escribe@cumatron.win](mailto:escribe@cumatron.win)
