@@ -18,7 +18,8 @@ const Confirm = styled.div`
 
 const Text = styled.div`
   font-family: Org_v01;
-  text-align: justify;
+  text-align: center;
+  font-size: 28px;
   padding: 8px;
 `
 
@@ -36,11 +37,8 @@ export default ({ children }) => {
   return (
     <Confirm>
       <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
+        #renunciapiñera #renunciapiñera #renunciapiñera #renunciapiñera
+        #renunciapiñera #renunciapiñera
       </Text>
       <Button
         disabled={!data.isLoaded}

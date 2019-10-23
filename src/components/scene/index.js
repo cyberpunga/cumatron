@@ -5,6 +5,7 @@ import Cumi from "./Cumi"
 import Sky from "./Sky"
 import Text from "./Text"
 import StrokeText from "./StrokeText"
+import Renuncia from "./Renuncia"
 import { getCamera, getRenderer, getScene } from "./threeSetup"
 
 const CumiExample = () => {
@@ -29,6 +30,7 @@ const CumiExample = () => {
       <Sky />
       <Text />
       <StrokeText />
+      <Renuncia />
     </SceneManager>
   )
 }
