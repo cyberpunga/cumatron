@@ -74,14 +74,16 @@ const IndexPage = () => {
         />
         <Sky />
         {asteroids}
-        <Text position={[0, 0, 0]}>
-          {ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}
-        </Text>
+        {!isSSR && (
+          <Text position={[0, 0, 0]}>
+            {ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}
+          </Text>
+        )}
         <Suspense fallback={null}>
           <Cumi scale={[20, 20, 20]} />
         </Suspense>
         {ready && data && <Speak words={data.sheetpoem} />}
-        {!ready && !isSSR && (
+        {!ready && (
           <HTML
             center
             style={{
