@@ -24,13 +24,50 @@ export default ({ children }) => {
   } = useStaticQuery(SITE)
 
   return (
-    <div style={{ height: "100%" }}>
-      <h1 style={{ position: "absolute", margin: "24px", zIndex: 100 }}>
-        {title}
-      </h1>
-      {children}
-      <footer style={{ position: "absolute", margin: "24px", bottom: 8 }}>
-        © {new Date().getFullYear()}, <a href={author_url}>{author}</a>
+    <div
+      style={{
+        width: "100%",
+        margin: "0 auto",
+        display: `flex`,
+        flexDirection: `column`,
+        minHeight: `100vh`,
+      }}
+    >
+      <header
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          zIndex: 1,
+          background: "#000000",
+          color: "#ffffff",
+        }}
+      >
+        <h1
+          style={{
+            // flex: 1,
+            margin: "8px",
+            padding: "0 8px",
+          }}
+        >
+          {title}
+        </h1>
+      </header>
+      <main
+        style={{
+          flex: 1,
+        }}
+      >
+        {children}
+      </main>
+      <footer style={{ zIndex: 1 }}>
+        <p style={{ margin: "8px", padding: "0 8px" }}>
+          © {new Date().getFullYear()}, Hecho en
+          {` `}
+          <a style={{ textDecoration: "none" }} href={author_url}>
+            {author}
+          </a>
+        </p>
       </footer>
     </div>
   )

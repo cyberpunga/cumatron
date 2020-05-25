@@ -59,7 +59,10 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="hola :D" />
-      <Canvas pixelRatio={isSSR ? null : window.devicePixelRatio}>
+      <Canvas
+        style={{ position: "absolute", top: 0 }}
+        pixelRatio={isSSR ? null : window.devicePixelRatio}
+      >
         <PerspectiveCamera makeDefault={true} position={[0, 0, 500]} />
         <pointLight />
         <OrbitControls
