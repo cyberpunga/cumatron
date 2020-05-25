@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@primaveraentalca/j1nnp": "^0.1.0",
+    "@piducancore/gl33ch": "^0.0.1",
     "cloudinary": "^1.14.0",
     "graphql-request": "^1.8.2",
     "jimp": "^0.6.4",

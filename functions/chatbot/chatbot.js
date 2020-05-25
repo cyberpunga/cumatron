@@ -5,7 +5,7 @@ const TelegrafWit = require("telegraf-wit")
 const { request } = require("graphql-request")
 const Jimp = require("jimp")
 const cloudinary = require("cloudinary")
-const glitch = require("@primaveraentalca/j1nnp")
+const gl33ch = require("@piducancore/gl33ch")
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -110,7 +110,7 @@ telegraf.on("text", ({ message, reply }) => {
 const glitchCover = async (image, text) => {
   const font = await Jimp.loadFont(path.join(__dirname, "fonts/org_01.fnt"))
   const textWidth = Jimp.measureText(font, text)
-  const glitched = await glitch(image)
+  const glitched = await gl33ch(image)
   const resized = await glitched.resize(textWidth / 2, Jimp.AUTO) // resize to textWidth and scale height accordingly
 
   const w = resized.bitmap.width
