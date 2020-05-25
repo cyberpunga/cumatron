@@ -59,7 +59,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="hola :D" />
-      <Canvas pixelRatio={window.devicePixelRatio}>
+      <Canvas pixelRatio={isSSR ? null : window.devicePixelRatio}>
         <PerspectiveCamera makeDefault={true} position={[0, 0, 500]} />
         <pointLight />
         <OrbitControls
@@ -74,16 +74,14 @@ const IndexPage = () => {
         />
         <Sky />
         {asteroids}
-        {!isSSR && (
-          <Text position={[0, 0, 0]}>
-            {ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}
-          </Text>
-        )}
+        <Text position={[0, 0, 0]}>
+          {ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}
+        </Text>
         <Suspense fallback={null}>
           <Cumi scale={[20, 20, 20]} />
         </Suspense>
         {ready && data && <Speak words={data.sheetpoem} />}
-        {!ready && (
+        {!ready && !isSSR && (
           <HTML
             center
             style={{
