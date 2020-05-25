@@ -55,6 +55,7 @@ const SHEETPOEM_QUERY = gql`
 const IndexPage = () => {
   const { data } = useQuery(SHEETPOEM_QUERY, { pollInterval: 20 * 1000 })
   const [ready, setReady] = useState(false)
+  const isSSR = typeof window === "undefined"
   return (
     <Layout>
       <SEO title="hola :D" />
@@ -80,7 +81,7 @@ const IndexPage = () => {
           <Cumi scale={[20, 20, 20]} />
         </Suspense>
         {ready && data && <Speak words={data.sheetpoem} />}
-        {!ready && (
+        {!ready && !isSSR && (
           <HTML
             center
             style={{
