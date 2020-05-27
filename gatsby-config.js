@@ -7,7 +7,6 @@ module.exports = {
   },
   plugins: [
     `gatsby-theme-apollo`,
-    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
