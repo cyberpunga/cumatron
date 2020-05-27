@@ -16,11 +16,11 @@
   "license": "MIT",
   "dependencies": {
     "base64-stream": "^1.0.0",
-    "chance": "^1.0.18",
-    "cloudinary": "^1.14.0",
-    "graphql-request": "^1.8.2",
-    "jimp": "^0.6.4",
+    "chance": "^1.1.6",
+    "cloudinary": "^1.21.0",
+    "graphql": "^15.0.0",
+    "jimp": "^0.12.1",
     "lodash": "^4.17.15",
-    "pdfkit": "^0.10.0"
+    "pdfkit": "^0.11.0"
   }
 }
