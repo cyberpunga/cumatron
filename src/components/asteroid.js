@@ -4,7 +4,6 @@ import { LinearFilter } from "three"
 
 const Asteroid = props => {
   const ref = useRef()
-  texture.minFilter = LinearFilter
   useFrame(({ clock: { elapsedTime } }) => {
     ref.current.rotation.y -= 0.01
     ref.current.position.x =
