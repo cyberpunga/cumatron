@@ -1,5 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { MessageSquare, Book } from "react-feather"
 
 import "orgdot-org-v01"
 import "./layout.css"
@@ -45,13 +46,15 @@ export default ({ children }) => {
       >
         <h1
           style={{
-            // flex: 1,
+            flex: 1,
             margin: "8px",
             padding: "0 8px",
           }}
         >
           {title}
         </h1>
+        <MessageSquare style={{ marginRight: "8px" }} />
+        <Book style={{ marginRight: "8px" }} />
       </header>
       <main
         style={{

@@ -1,5 +1,5 @@
-import React, { Suspense, useState, useRef } from "react"
-import { Canvas, useFrame } from "react-three-fiber"
+import React, { Suspense, useState } from "react"
+import { Canvas } from "react-three-fiber"
 import { OrbitControls, PerspectiveCamera, HTML } from "drei"
 import { useQuery, gql } from "@apollo/client"
 
@@ -9,35 +9,68 @@ import Cumi from "../components/cumi"
 import Sky from "../components/sky"
 import Text from "../components/text"
 import Speak from "../components/speak"
+import Asteroid from "../components/asteroid"
+import Star from "../components/star"
 import { int } from "../utils/random"
 
 let asteroids = []
-
-const Asteroid = props => {
-  useFrame(({ clock: { elapsedTime } }) => {
-    asteroid.current.rotation.y -= 0.01
-    asteroid.current.position.x =
-      50 * props.i * Math.cos(elapsedTime * 0.01 * props.i)
-    asteroid.current.position.z =
-      50 * props.i * Math.sin(elapsedTime * 0.01 * props.i)
-  })
-  const asteroid = useRef()
-  return (
-    <mesh ref={asteroid} {...props}>
-      <dodecahedronBufferGeometry attach="geometry" args={[1, 0]} />
-      <meshPhongMaterial attach="material" color="pink" />
-    </mesh>
-  )
-}
-
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 50; i++) {
   asteroids.push(
     <Asteroid
       key={i}
       i={i}
-      position={[int(-300, 300), int(-100, 100), int(-300, 300)]}
+      // position-y={int(-100, 100)}
+      position-y={i * -8}
       rotation={[int(-3, 3), int(-3, 3), int(-3, 3)]}
-      scale={[int(2, 4) * i, int(2, 4) * i, int(2, 4) * i]}
+      scale={[
+        int(2, 3) * i * Math.random(),
+        int(2, 3) * i * Math.random(),
+        int(2, 3) * i * Math.random(),
+      ]}
+    />
+  )
+}
+
+const negOrPos = n => {
+  if (Math.random() >= 0.5) {
+    return n * 1
+  } else {
+    return n * -1
+  }
+}
+
+let stars = []
+for (let i = 0; i < 1001; i++) {
+  stars.push(
+    <Star
+      key={i}
+      position={[int(-1000, 1000), int(-1000, 1000), negOrPos(int(1200, 1400))]}
+      scale={[2, 2, 2]}
+      color="#eeeeee"
+    />
+  )
+}
+
+let stars2 = []
+for (let i = 0; i < 1001; i++) {
+  stars2.push(
+    <Star
+      key={i}
+      position={[int(-1000, 1000), negOrPos(int(1200, 1400)), int(-1000, 1000)]}
+      scale={[2, 2, 2]}
+      color="#eeeeee"
+    />
+  )
+}
+
+let stars3 = []
+for (let i = 0; i < 1001; i++) {
+  stars3.push(
+    <Star
+      key={i}
+      position={[negOrPos(int(1200, 1400)), int(-1000, 1000), int(-1000, 1000)]}
+      scale={[2, 2, 2]}
+      color="#eeeeee"
     />
   )
 }
@@ -63,25 +96,33 @@ const IndexPage = () => {
         style={{ position: "absolute", top: 0 }}
         pixelRatio={isSSR ? null : window.devicePixelRatio}
       >
-        <PerspectiveCamera makeDefault={true} position={[0, 0, 500]} />
+        <PerspectiveCamera
+          makeDefault={true}
+          position={[0, 250, 500]}
+          far={4000}
+        />
         <pointLight />
         <OrbitControls
+          // autoRotate
           enableDamping
           dampingFactor={0.05}
-          minDistance={10}
-          maxDistance={950}
+          minDistance={100}
+          maxDistance={1200}
           enableKeys={false}
           enablePan={false}
-          minPolarAngle={1}
+          // minPolarAngle={1}
           maxPolarAngle={2}
+          // minAzimuthAngle={-1}
+          // maxAzimuthAngle={1}
         />
         <Sky />
         {asteroids}
-        <Text position={[0, 0, 0]}>
-          {ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}
-        </Text>
+        {stars}
+        {stars2}
+        {stars3}
+        <Text>{ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}</Text>
         <Suspense fallback={null}>
-          <Cumi scale={[20, 20, 20]} />
+          <Cumi scale={[20, 20, 20]} position={[0, 50, 0]} />
         </Suspense>
         {ready && data && <Speak words={data.sheetpoem} />}
         {!ready && !isSSR && (

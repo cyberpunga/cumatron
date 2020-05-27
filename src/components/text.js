@@ -7,9 +7,9 @@ export default props => {
   const { viewport } = useThree()
   return (
     <Text
-      minWidth={300}
+      // minWidth={300}
       maxWidth={(viewport.width / 100) * 90}
-      fontSize={24}
+      fontSize={16}
       color={0xffffff}
       font={font}
       anchorX="center"

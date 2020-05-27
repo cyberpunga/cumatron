@@ -26,8 +26,8 @@ export default function Model(props) {
     group.current.rotation.x -= 0.01
     group.current.position.x = 200 * Math.cos(elapsedTime * 0.1)
     group.current.position.z = 200 * Math.sin(elapsedTime * 0.1)
-    door1.current.rotation.y = (Math.sin(elapsedTime * 1.2) * Math.PI) / 2 - 4.7
-    door2.current.rotation.y = (Math.sin(elapsedTime * 1.3) * Math.PI) / 2 - 4.7
+    door1.current.rotation.y = (Math.sin(elapsedTime * 0.2) * Math.PI) / 2 - 4.7
+    door2.current.rotation.y = (Math.sin(elapsedTime * 0.3) * Math.PI) / 2 - 4.7
   })
 
   return (
