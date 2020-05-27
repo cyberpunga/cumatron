@@ -1,10 +1,9 @@
-import React, { useMemo, useRef } from "react"
+import React, { useRef } from "react"
 import { useFrame } from "react-three-fiber"
-import { TextureLoader, LinearFilter } from "three"
+import { LinearFilter } from "three"
 
 const Asteroid = props => {
   const ref = useRef()
-  const texture = useMemo(() => new TextureLoader().load("/asteroid.jpg"), [])
   texture.minFilter = LinearFilter
   useFrame(({ clock: { elapsedTime } }) => {
     ref.current.rotation.y -= 0.01
@@ -16,10 +15,7 @@ const Asteroid = props => {
   return (
     <mesh ref={ref} {...props}>
       <dodecahedronBufferGeometry attach="geometry" args={[1, 0]} />
-      <meshPhongMaterial
-        attach="material"
-        color="hotpink" // map={texture}
-      />
+      <meshPhongMaterial attach="material" color="hotpink" />
     </mesh>
   )
 }
