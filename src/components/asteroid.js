@@ -1,6 +1,5 @@
 import React, { useRef } from "react"
 import { useFrame } from "react-three-fiber"
-import { LinearFilter } from "three"
 
 const Asteroid = props => {
   const ref = useRef()

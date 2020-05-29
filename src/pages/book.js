@@ -11,6 +11,7 @@ const BookPage = () => {
         width="100%"
         height="100%"
         src="https://cumatron.win/book"
+        title="CUMATRON.PDF"
       ></iframe>
     </Layout>
   )

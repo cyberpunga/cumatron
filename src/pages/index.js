@@ -11,7 +11,7 @@ import Text from "../components/text"
 import Speak from "../components/speak"
 import Asteroid from "../components/asteroid"
 import Star from "../components/star"
-import { int } from "../utils/random"
+import { randomInteger, randomPosition } from "../utils/random"
 
 let asteroids = []
 for (let i = 0; i < 50; i++) {
@@ -19,56 +19,27 @@ for (let i = 0; i < 50; i++) {
     <Asteroid
       key={i}
       i={i}
-      // position-y={int(-100, 100)}
       position-y={i * -8}
-      rotation={[int(-3, 3), int(-3, 3), int(-3, 3)]}
+      rotation={[
+        randomInteger(-3, 3),
+        randomInteger(-3, 3),
+        randomInteger(-3, 3),
+      ]}
       scale={[
-        int(2, 3) * i * Math.random(),
-        int(2, 3) * i * Math.random(),
-        int(2, 3) * i * Math.random(),
+        randomInteger(2, 3) * i * Math.random(),
+        randomInteger(2, 3) * i * Math.random(),
+        randomInteger(2, 3) * i * Math.random(),
       ]}
     />
   )
 }
 
-const negOrPos = n => {
-  if (Math.random() >= 0.5) {
-    return n * 1
-  } else {
-    return n * -1
-  }
-}
-
 let stars = []
-for (let i = 0; i < 1001; i++) {
+for (let i = 0; i < 3000; i++) {
   stars.push(
     <Star
       key={i}
-      position={[int(-1000, 1000), int(-1000, 1000), negOrPos(int(1200, 1400))]}
-      scale={[2, 2, 2]}
-      color="#eeeeee"
-    />
-  )
-}
-
-let stars2 = []
-for (let i = 0; i < 1001; i++) {
-  stars2.push(
-    <Star
-      key={i}
-      position={[int(-1000, 1000), negOrPos(int(1200, 1400)), int(-1000, 1000)]}
-      scale={[2, 2, 2]}
-      color="#eeeeee"
-    />
-  )
-}
-
-let stars3 = []
-for (let i = 0; i < 1001; i++) {
-  stars3.push(
-    <Star
-      key={i}
-      position={[negOrPos(int(1200, 1400)), int(-1000, 1000), int(-1000, 1000)]}
+      position={randomPosition(1200, 1400)}
       scale={[2, 2, 2]}
       color="#eeeeee"
     />
@@ -103,7 +74,6 @@ const IndexPage = () => {
         />
         <pointLight />
         <OrbitControls
-          // autoRotate
           enableDamping
           dampingFactor={0.05}
           minDistance={100}
@@ -118,8 +88,6 @@ const IndexPage = () => {
         <Sky />
         {asteroids}
         {stars}
-        {stars2}
-        {stars3}
         <Text>{ready ? data && data.sheetpoem : "hola\n:D\n\n\n\n\n"}</Text>
         <Suspense fallback={null}>
           <Cumi scale={[20, 20, 20]} position={[0, 50, 0]} />
