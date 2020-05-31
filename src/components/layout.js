@@ -53,8 +53,12 @@ export default ({ children }) => {
         >
           {title}
         </h1>
-        <MessageSquare style={{ marginRight: "8px" }} />
-        <Book style={{ marginRight: "8px" }} />
+        <a href="https://t.me/cumatron_bot" target="_blank" rel="noreferrer">
+          <MessageSquare style={{ marginRight: "8px" }} />
+        </a>
+        <a href="/.netlify/functions/book" target="_blank" rel="noreferrer">
+          <Book style={{ marginRight: "8px" }} />
+        </a>
       </header>
       <main
         style={{
