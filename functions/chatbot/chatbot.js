@@ -63,10 +63,9 @@ telegraf.hears("hi", ({ reply }) => reply("Hey there"))
 
 telegraf.on("text", ({ message, reply }) => {
   return wit.meaning(message.text).then(async result => {
-    const { intent } = result.entities
+    const intent = result.intents[0]
     if (intent) {
-      let sheetpoem = ""
-      switch (intent[0].value) {
+      switch (intent.name) {
         case "greeting":
           reply(await getData({ range: "F1:G1000", verses: 1 }))
           break
