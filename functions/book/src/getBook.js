@@ -4,8 +4,7 @@ const PDFDocument = require("pdfkit")
 const getBookData = require("./getBookData")
 const getRandomImage = require("./getRandomImage")
 
-const g11x = require("./cumatronize/g11x")
-const pasteText = require("./cumatronize/pasteText")
+const { g11x, pasteText } = require("cumatronize")
 
 const moment = require("moment")
 moment.updateLocale("es", require("moment/locale/es"))

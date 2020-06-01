@@ -2810,11 +2810,6 @@ base64-js@^1.0.2, base64-js@^1.1.2, base64-js@^1.3.0:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
   integrity sha512-mLQ4i2QO1ytvGWFWmcngKO//JXAQueZvwEKtjgQFM4jIK0kU+ytMfplL8j+n5mspOfjHwoAg+9yhb7BwAHm36g==
 
-base64-stream@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/base64-stream/-/base64-stream-1.0.0.tgz#157ae00bc7888695e884e1fcc51c551fdfa8a1fa"
-  integrity sha512-BQQZftaO48FcE1Kof9CmXMFaAdqkcNorgc8CxesZv9nMbbTF1EFyQe89UOuh//QMmdtfUDXyO8rgUalemL5ODA==
-
 base64id@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/base64id/-/base64id-2.0.0.tgz#2770ac6bc47d312af97a8bf9a634342e0cd25cb6"
@@ -4256,6 +4251,14 @@ csstype@^2.2.0:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
+
+cumatronize@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/cumatronize/-/cumatronize-1.0.1.tgz#68f6adcda13216b5ff3948245236c006cacd2838"
+  integrity sha512-zBmqigDu9GRj5Hi8IyuWisoKem8EJ/m9Hdq47PPlTYBsI6bPuBJW4gqLvZjk84ct5nePbrTt4iz2cg9+Z3YPbQ==
+  dependencies:
+    "@piducancore/gl33ch" "^0.0.1"
+    jimp "^0.12.1"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -8343,11 +8346,6 @@ lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
-lodash.random@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/lodash.random/-/lodash.random-3.2.0.tgz#96e24e763333199130d2c9e2fd57f91703cc262d"
-  integrity sha1-luJOdjMzGZEw0sni/Vf5FwPMJi0=
-
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -8372,11 +8370,6 @@ lodash.throttle@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
-
-lodash.times@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/lodash.times/-/lodash.times-4.3.2.tgz#3e1f2565c431754d54ab57f2ed1741939285ca1d"
-  integrity sha1-Ph8lZcQxdU1Uq1fy7RdBk5KFyh0=
 
 lodash.toarray@^4.4.0:
   version "4.4.0"
