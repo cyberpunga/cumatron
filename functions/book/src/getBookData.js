@@ -1,7 +1,7 @@
 const { request } = require("graphql-request")
 
 const getBookData = async () => {
-  const sheetPoetryAPI = "https://sheetpoetry.now.sh/graphql"
+  const endpoint = "https://sheetpoetry.now.sh/graphql"
   const query = `{
     content: sheetpoem(
       spreadsheetId: "16bLauoyWcJy6aevXTagkHHnlgW2KZufXhHocVQ92qOg"
@@ -14,7 +14,7 @@ const getBookData = async () => {
       verses: 1
     )
   }`
-  const { title, content } = await request(sheetPoetryAPI, query)
+  const { title, content } = await request(endpoint, query)
   return { title, content }
 }
 
