@@ -1,7 +1,7 @@
 const { request } = require("graphql-request")
 
 const getData = async ({ range, verses }) => {
-  const endpoint = "https://sheetpoetry.now.sh/graphql"
+  const endpoint = process.env.URL + "/.netlify/functions/graphql"
   const spreadsheetId = "16bLauoyWcJy6aevXTagkHHnlgW2KZufXhHocVQ92qOg"
   const query = `
     query getWords($spreadsheetId: String!, $range: String!, $verses: Int) {
