@@ -10,9 +10,13 @@ telegraf.on("text", onText)
 telegraf.on("photo", onPhoto)
 
 exports.handler = async ({ body }) => {
-  telegraf.handleUpdate(JSON.parse(body)) // make Telegraf process that data passed to us
-  return {
-    statusCode: 200,
-    body: "Hello, World", // return something
+  try {
+    await telegraf.handleUpdate(JSON.parse(body)) // make Telegraf process that data passed to us
+    return {
+      statusCode: 200,
+      body: "Hello, World", // return something
+    }
+  } catch (error) {
+    throw error
   }
 }

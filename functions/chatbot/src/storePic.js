@@ -7,11 +7,15 @@ cloudinary.config({
 })
 
 const storeUpload = async file => {
-  const base64String = file.toString("base64")
-  const upload = await cloudinary.uploader.upload(
-    "data:image/png;base64," + base64String
-  )
-  return upload.secure_url
+  try {
+    const base64String = file.toString("base64")
+    const upload = await cloudinary.uploader.upload(
+      "data:image/png;base64," + base64String
+    )
+    return upload.secure_url
+  } catch (error) {
+    throw error
+  }
 }
 
 module.exports = storeUpload
