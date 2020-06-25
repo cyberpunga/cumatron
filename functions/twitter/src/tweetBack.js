@@ -21,7 +21,10 @@ async function post(content, replyTo) {
 
 async function tweetBack(event) {
   const message = event.tweet_create_events.shift()
-  if (message.user.id_str !== "1029886558940356608") {
+  if (
+    message.in_reply_to_user_id_str === "1029886558940356608" ||
+    message.text.includes("@cumatron_win")
+  ) {
     const meaning = await wit.meaning(message.text)
     const intent = meaning.intents[0]
     if (intent.name) {
