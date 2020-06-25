@@ -21,11 +21,11 @@ async function post(content, replyTo) {
 
 async function tweetBack(event) {
   const message = event.tweet_create_events.shift()
-  if (message.in_reply_to_user_id_str === "1029886558940356608") {
+  if (message.user.id_str !== "1029886558940356608") {
     const meaning = await wit.meaning(message.text)
-    const intent = meaning.intents[0].name
-    if (intent) {
-      switch (intent) {
+    const intent = meaning.intents[0]
+    if (intent.name) {
+      switch (intent.name) {
         case "greeting":
           const greeting = await getData({ range: "F1:G1000", verses: 1 })
           await post(greeting, message.id_str)
