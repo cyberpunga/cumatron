@@ -1,12 +1,12 @@
-const { textBack, tweetBack, validateWebhook } = require("./src")
+const { validateWebhook } = require("./src/validateWebhook")
+const { replyDirectMessage } = require("./src/replyDirectMessage")
+const { replyTweet } = require("./src/replyTweet")
 
 exports.handler = async ({ queryStringParameters, body }) => {
   try {
     if (queryStringParameters.crc_token) {
-      const crc = validateWebhook(
-        queryStringParameters.crc_token,
-        process.env.TWITTER_CONSUMER_SECRET
-      )
+      const secret = process.env.TWITTER_CONSUMER_SECRET
+      const crc = validateWebhook(queryStringParameters.crc_token, secret)
       return {
         body: JSON.stringify(crc),
         statusCode: 200,
@@ -14,11 +14,13 @@ exports.handler = async ({ queryStringParameters, body }) => {
     }
 
     const twitterEvent = JSON.parse(body, null, 2)
+
     if (twitterEvent.direct_message_events) {
-      await textBack(twitterEvent)
+      await replyDirectMessage(twitterEvent)
     }
+
     if (twitterEvent.tweet_create_events) {
-      await tweetBack(twitterEvent)
+      await replyTweet(twitterEvent)
     }
 
     return {

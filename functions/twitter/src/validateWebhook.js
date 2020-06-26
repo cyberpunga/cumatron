@@ -1,6 +1,4 @@
 const crypto = require("crypto")
-const { replyDirectMessage } = require("./replyDirectMessage")
-const { tweetBack } = require("./tweetBack")
 
 const validateWebhook = (token, secret) => {
   const responseToken = crypto
@@ -11,7 +9,5 @@ const validateWebhook = (token, secret) => {
 }
 
 module.exports = {
-  replyDirectMessage,
-  tweetBack,
   validateWebhook,
 }

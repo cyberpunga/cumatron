@@ -19,7 +19,7 @@ async function post(content, replyTo) {
   })
 }
 
-async function tweetBack(event) {
+async function replyTweet(event) {
   const message = event.tweet_create_events.shift()
   if (
     message.in_reply_to_user_id_str === "1029886558940356608" ||
@@ -80,4 +80,4 @@ async function tweetBack(event) {
   }
 }
 
-module.exports = { tweetBack }
+module.exports = { replyTweet }
