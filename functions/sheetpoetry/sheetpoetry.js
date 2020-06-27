@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server-lambda")
-const { sheetPoetry } = require("./sheetpoetry")
+const { sheetPoetry } = require("./src")
 
 const typeDefs = gql`
   type Query {

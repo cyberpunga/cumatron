@@ -11,7 +11,12 @@ const config = {
 }
 const setWebhook = async () => {
   try {
-    const url = await ngrok.connect(8888)
+    let url
+    if (process.argv[2]) {
+      url = process.argv[2]
+    } else {
+      url = await ngrok.connect(8888)
+    }
     const webhookURL = `${url}/.netlify/functions/twitter`
     const webhook = new Autohook(config)
     await webhook.removeWebhooks()
