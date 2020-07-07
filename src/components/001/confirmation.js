@@ -13,6 +13,7 @@ export default function Confirmation({ onPointerDown }) {
         padding: "16px",
         textAlign: "center",
       }}
+      zIndexRange={[3, 0]}
     >
       <p>
         cumatron necesita tu autorización para hablar a través de tu navegador
