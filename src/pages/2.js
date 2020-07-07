@@ -5,7 +5,7 @@ import { TextureLoader, LinearFilter, DoubleSide } from "three"
 
 import SEO from "../components/seo"
 import Layout from "../components/layout"
-import Cumi from "../components/cumi2"
+import Cumi from "../components/001/cumi"
 
 const Grass = props => {
   const texture = useMemo(() => new TextureLoader().load("/grass.jpg"), [])
