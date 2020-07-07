@@ -7,7 +7,7 @@ import { useSpring, a } from "react-spring/three"
 export default function Model(props) {
   const { nodes, materials } = useLoader(
     GLTFLoader,
-    "/cumi6.gltf",
+    "/cumi/cumi.gltf",
     draco("/draco-gltf/")
   )
 
