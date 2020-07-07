@@ -40,8 +40,8 @@ export default ({ children }) => {
           flexDirection: "row",
           alignItems: "center",
           zIndex: 1,
-          background: "#000000",
-          color: "#ffffff",
+          background: "#111111",
+          color: "#eeeeee",
         }}
       >
         <h1
@@ -56,7 +56,7 @@ export default ({ children }) => {
         <a href="https://t.me/cumatron_bot" target="_blank" rel="noreferrer">
           <MessageSquare style={{ marginRight: "8px" }} />
         </a>
-        <a href="/.netlify/functions/book" target="_blank" rel="noreferrer">
+        <a href="/book" target="_blank" rel="noreferrer">
           <Book style={{ marginRight: "8px" }} />
         </a>
       </header>
@@ -68,7 +68,14 @@ export default ({ children }) => {
         {children}
       </main>
       <footer style={{ zIndex: 1 }}>
-        <p style={{ margin: "8px", padding: "0 8px" }}>
+        <p
+          style={{
+            margin: "8px",
+            padding: "0 8px",
+            color: "#eeeeee",
+            fontSize: 12,
+          }}
+        >
           © {new Date().getFullYear()}, Hecho en
           {` `}
           <a style={{ textDecoration: "none" }} href={author_url}>
