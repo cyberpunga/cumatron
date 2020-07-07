@@ -9,7 +9,7 @@
     "apollo-server-lambda": "^2.14.0",
     "cloudinary": "^1.21.0",
     "cumatronize": "^1.0.1",
-    "drei": "^0.0.54",
+    "drei": "^0.0.60",
     "gatsby": "^2.15.14",
     "gatsby-plugin-manifest": "^2.2.16",
     "gatsby-plugin-react-helmet": "^3.1.7",

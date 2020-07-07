@@ -904,7 +904,14 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.1", "@babel/runtime@^7.9.6":
+"@babel/runtime@^7.10.2":
+  version "7.10.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.3.tgz#670d002655a7c366540c67f6fd3342cd09500364"
+  integrity sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.9.6":
   version "7.10.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.2.tgz#d103f21f2602497d38348a32e008637d506db839"
   integrity sha512-6sF3uQw2ivImfVIl62RZ7MXhO2tap69WeWK57vAaimT6AZbE4FbqjdEJIN1UqoD6wI6B+1n9UiagafH1sxjOtg==
@@ -4789,18 +4796,18 @@ dotenv@^8.0.0, dotenv@^8.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
-drei@^0.0.54:
-  version "0.0.54"
-  resolved "https://registry.yarnpkg.com/drei/-/drei-0.0.54.tgz#f5ed77613149c86c0f0d62cf3c694647992de393"
-  integrity sha512-+TtFVGqIh9IhWMRkUeUHdHZF5RtYEJ851NxZUywvei1tow6oMKoVqxEQXo8+8f6bUOILI9LOLS90c5usMpRtZw==
+drei@^0.0.60:
+  version "0.0.60"
+  resolved "https://registry.yarnpkg.com/drei/-/drei-0.0.60.tgz#792a6c859cfbe2b0ec4e761404011a78502b5e4f"
+  integrity sha512-nx85JMYmKxF7kjtJk+SKYiHpg8E4pRzSyatt7X3xEijEUfQ8iz7GDfp/sZvZZc6HnJ5zMLrhisxrJrFXAJbvpw==
   dependencies:
-    "@babel/runtime" "^7.10.1"
+    "@babel/runtime" "^7.10.2"
     lodash.omit "^4.5.0"
     lodash.pick "^4.4.0"
-    postprocessing "^6.13.5"
+    postprocessing "^6.14.0"
     react-merge-refs "^1.0.0"
     stats.js "^0.17.0"
-    troika-3d-text "^0.26.1"
+    troika-3d-text "^0.28.0"
     utility-types "^3.10.0"
 
 duplexer2@~0.1.4:
@@ -10419,10 +10426,10 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.26, postcss@^7.0.27, postcss@^7.0.3
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postprocessing@^6.13.5:
-  version "6.13.5"
-  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.13.5.tgz#77f92cd5925b2e5a4951ae81ba5020abb6d331b1"
-  integrity sha512-txeM9PL1p5HgzE6agSLO1cT9TQyhoXn1Ogj9PkEjLNNbqI1Anv2PmUTevPR2CY9o93ET563T1jA8d75Bftw+lw==
+postprocessing@^6.14.0:
+  version "6.15.1"
+  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.15.1.tgz#bfd385c5359a11586fe090fada6d9f321821bce7"
+  integrity sha512-3zJTd5zXYt/phuc+yrXlQv8Aj0BazqyIOe0ZCIKqs4eupyUdFpyFu2UiHY8iMdmlMQUmHC2zocpTaYcJiayxzw==
 
 prebuild-install@^5.3.3:
   version "5.3.3"
@@ -12821,45 +12828,45 @@ trim@0.0.1:
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
   integrity sha1-WFhUf2spB1fulczMZm+1AITEYN0=
 
-troika-3d-text@^0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/troika-3d-text/-/troika-3d-text-0.26.1.tgz#009352a9d05b94b36c46dcd8f3761a8ca748e753"
-  integrity sha512-sPLT9GfoJPhoG+dAWy1EDgtXjU4hJiYsmjZykPyxx1v5tzJTAo3pMfzha11IE2je5bO05NjvPFuWrh/HQjeQUQ==
+troika-3d-text@^0.28.0:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/troika-3d-text/-/troika-3d-text-0.28.1.tgz#4dbb1f397427fdf91304281575a30df56084b2b5"
+  integrity sha512-e9/cK4+59F8oOpd5sG7ZE7eVfRlNhn9vyPPtsfR9KFHkpbDGN1qdj1YEgWBRC0ops7mY7X9kLnjXwxzx8n72lQ==
   dependencies:
-    troika-3d "^0.26.0"
-    troika-three-utils "^0.26.0"
-    troika-worker-utils "^0.26.1"
+    troika-3d "^0.28.1"
+    troika-three-utils "^0.28.1"
+    troika-worker-utils "^0.28.0"
 
-troika-3d@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/troika-3d/-/troika-3d-0.26.0.tgz#9c96327ec2c3c0a3f09d1442877b1c76198897b7"
-  integrity sha512-wVMatGRx/jKtaRgv5onK3JMsYBZOkg3fh1f9bppBRG5TxGwL+E6v5eJB34AxKsLFuL441t+k1qbs2eBRP0XFXg==
+troika-3d@^0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/troika-3d/-/troika-3d-0.28.1.tgz#55d57433fb817be70a8b1388eaaaa4103d00435e"
+  integrity sha512-Ta6vqJPcURX7sni6NcGxhEi6AvLtXf8evJrZfi/+DthD/rBff33cJIVzmGrKVHODsb0cEV50mPSsK9MJznFkAg==
   dependencies:
-    troika-core "^0.26.0"
-    troika-three-utils "^0.26.0"
+    troika-core "^0.28.0"
+    troika-three-utils "^0.28.1"
 
-troika-animation@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/troika-animation/-/troika-animation-0.26.0.tgz#f9fbacfb340aba2a20dc4d7e9d3222fd74efc6f5"
-  integrity sha512-L8k0aaZKFhBMPCBuzRKCDMvoKgzNiQv+JU1K4VbBUtY4pz/MlAuj3JqtMBr8qXpFeKfIIv52gB4CfJve3uDUWQ==
+troika-animation@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/troika-animation/-/troika-animation-0.28.0.tgz#391a78a15bb584698b7d69453dfb00e9ac2b71c3"
+  integrity sha512-QsVvBgCYGMTC9a+sps6r6diQ4QFOB/4pxn3Dox0fnYM1UwkV6Fkuwdc+tIBDCbWHZURaFCvhR7/mPd425B2WhA==
 
-troika-core@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/troika-core/-/troika-core-0.26.0.tgz#5a336d99ff3f487356f5cbf7c005a24a27a9c31f"
-  integrity sha512-N3H0e4YpEGuZgwR+hOO2CmjXXv/+vKhQ1+Fm51VzNODXJtaTeOh2/FO0WYfgmSIG1/afVsqx/wpCqGEEt5LkdA==
+troika-core@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/troika-core/-/troika-core-0.28.0.tgz#961add4807f4c53894d971c809cdd947a110a7f4"
+  integrity sha512-0TvqvxChtSr43vntDnq9WVs2Rrf7pFk2yZb6Rpu+fFtCkY8Vb8q4hRcS5WHXHQAn+hJIZ+yznUV6AGm6kq9+ww==
   dependencies:
     prop-types "^15.6.2"
-    troika-animation "^0.26.0"
+    troika-animation "^0.28.0"
 
-troika-three-utils@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/troika-three-utils/-/troika-three-utils-0.26.0.tgz#4019d7691d4b88d4dc0521d55f50dcf46e6fea2f"
-  integrity sha512-zyH/MKg8/zEhAri48i0hUGxTZUIsOlq02wVdDQLUHIaqE0GhisNrh8hYcV1xChnDQvpVfzL/yzKcPgyk/Qbw/w==
+troika-three-utils@^0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/troika-three-utils/-/troika-three-utils-0.28.1.tgz#8ce9b17c82c79bd6dde9756338003868142d018a"
+  integrity sha512-tzKVklP2W2oOEohumOGmkW8lds4dIQZJJoVUgKmb4oZ/QAI4i7o3pHyNRsLokJEVpFzv45ozSoaWiCqnzDEL7w==
 
-troika-worker-utils@^0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/troika-worker-utils/-/troika-worker-utils-0.26.1.tgz#cdf4d6d319145cf74383d27cf716c4fca3437aab"
-  integrity sha512-631kvP1T02Go4sBjOETL3xETw8cK9QiBDho46yoDojtezEodp9i02gcZRy9rpycRj0Gz0o6Ks+R5arUj+c0S8w==
+troika-worker-utils@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/troika-worker-utils/-/troika-worker-utils-0.28.0.tgz#c1d821a831e55fe0c7b78b1f367c86c0fb38184c"
+  integrity sha512-Wo5rF+lebBqQQgrRA7yWKWO7Qs55mkfCNafz9TdHs5mIQMIVH+Tb+2ZP6HN+jVIo9pjVcZsSQC2G8A9CbX51BA==
 
 trough@^1.0.0:
   version "1.0.5"
