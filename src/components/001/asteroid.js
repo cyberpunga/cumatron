@@ -1,29 +1,43 @@
 import React, { useRef } from "react"
 import { useFrame } from "react-three-fiber"
 
+import { PlaneIcon, SpriteIcon } from "./icons"
+
 let asteroids = []
 
 for (let i = 0; i < 240; i++) {
   asteroids.push(
-    <mesh
-      key={i}
-      castShadow
-      position={[
-        (10 + Math.random() * 2) * Math.cos(i),
-        Math.random() * 2,
-        (10 + Math.random() * 2) * Math.sin(i),
-      ]}
-      rotation={[Math.random(), Math.random(), Math.random()]}
-    >
-      <icosahedronBufferGeometry
-        attach="geometry"
-        args={[0.3 * Math.random(), 0]}
-      />
-      <meshLambertMaterial
-        attach="material"
-        color={Math.random() > 0.5 ? "#777777" : "#bbbbbb"}
-      />
-    </mesh>
+    <group key={i}>
+      {Math.random() > 0.8 ? (
+        <PlaneIcon //position={[2, 2, 0]}
+          position={[
+            (10 + Math.random() * 2) * Math.cos(i),
+            Math.random() * 3,
+            (10 + Math.random() * 2) * Math.sin(i),
+          ]}
+          rotation={[Math.random(), Math.random(), Math.random()]}
+        />
+      ) : (
+        <mesh
+          castShadow
+          position={[
+            (10 + Math.random() * 2) * Math.cos(i),
+            Math.random() * 2,
+            (10 + Math.random() * 2) * Math.sin(i),
+          ]}
+          rotation={[Math.random(), Math.random(), Math.random()]}
+        >
+          <icosahedronBufferGeometry
+            attach="geometry"
+            args={[0.3 * Math.random(), 0]}
+          />
+          <meshLambertMaterial
+            attach="material"
+            color={Math.random() > 0.5 ? "#777777" : "#bbbbbb"}
+          />
+        </mesh>
+      )}
+    </group>
   )
 }
 
