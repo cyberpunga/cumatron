@@ -6,7 +6,15 @@ import { TextureLoader, DoubleSide } from "three"
 function PlaneIcon(props) {
   const texture = useLoader(TextureLoader, "/pdf-icon.png")
   return (
-    <Plane {...props} args={[1, 0.9566666666666667]}>
+    <Plane
+      {...props}
+      args={[1, 0.9566666666666667]}
+      onPointerUp={e =>
+        e.stopPropagation() &&
+        window &&
+        window.open("https://cumatron.win/book")
+      }
+    >
       <meshLambertMaterial
         attach="material"
         map={texture}
