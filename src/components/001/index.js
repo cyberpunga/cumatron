@@ -56,13 +56,15 @@ export default function Scene() {
         <Asteroids />
       </Suspense>
       {ready ? (
-        <Text>
-          {data ? data.sheetpoem : loading ? "loading..." : error.message}
-        </Text>
+        <React.Fragment>
+          <Text>
+            {data ? data.sheetpoem : loading ? "loading..." : error.message}
+          </Text>
+          <Speak words={data && data.sheetpoem} />
+        </React.Fragment>
       ) : (
         <Confirmation onPointerDown={() => setReady(!ready)} />
       )}
-      <Speak words={data && data.sheetpoem} />
     </Canvas>
   )
 }
