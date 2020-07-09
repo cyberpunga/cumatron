@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from "react"
 import { Canvas } from "react-three-fiber"
-import { OrbitControls } from "drei"
+import { OrbitControls, PerspectiveCamera } from "drei"
 import { useQuery, gql } from "@apollo/client"
 
 import Cumi from "./cumi"
@@ -31,7 +31,8 @@ export default function Scene() {
 
   return (
     <Canvas shadowMap style={{ position: "absolute", top: 0 }}>
-      {<pointLight castShadow position={[-10, 32, 32]} color="yellow" />}
+      <PerspectiveCamera makeDefault />
+      <pointLight castShadow position={[-10, 32, 32]} color="yellow" />
       <pointLight castShadow position={[10, -32, 0]} color="violet" />
       <OrbitControls
         enableDamping
@@ -41,7 +42,7 @@ export default function Scene() {
         enableKeys={false}
         enablePan={false}
         minPolarAngle={1}
-        maxPolarAngle={1.6}
+        maxPolarAngle={2}
       />
       <Stars />
       <Suspense fallback={null}>
