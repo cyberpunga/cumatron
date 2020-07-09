@@ -25,6 +25,7 @@ export default function Model(props) {
         material={materials.Material}
         geometry={nodes.Cube.geometry}
         onPointerDown={e => e.stopPropagation()}
+        onPointerUp={e => e.stopPropagation()}
       />
       <a.mesh
         castShadow
@@ -32,6 +33,7 @@ export default function Model(props) {
         geometry={nodes.Cube001.geometry}
         position={[0.9, 0.8, 0.96]}
         onPointerDown={e => e.stopPropagation() && setDoor1(!door1)}
+        onPointerUp={e => e.stopPropagation()}
         rotation={animateProps.door1}
       />
       <a.mesh
@@ -40,6 +42,7 @@ export default function Model(props) {
         geometry={nodes.Cube002.geometry}
         position={[0.9, -0.6, 0.95]}
         onPointerDown={e => e.stopPropagation() && setDoor2(!door2)}
+        onPointerUp={e => e.stopPropagation()}
         rotation={animateProps.door2}
       />
     </group>
