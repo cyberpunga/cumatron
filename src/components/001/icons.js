@@ -9,7 +9,7 @@ function PlaneIcon(props) {
     <Plane
       {...props}
       args={[1, 0.9566666666666667]}
-      onPointerUp={e =>
+      onPointerDown={e =>
         e.stopPropagation() &&
         window &&
         window.open("https://cumatron.win/book")
