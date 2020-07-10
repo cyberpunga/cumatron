@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import { useFrame } from "react-three-fiber"
 
-import { PlaneIcon, SpriteIcon } from "./icons"
+import { PlaneIcon } from "./icons"
 
 let asteroids = []
 
