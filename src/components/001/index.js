@@ -1,7 +1,7 @@
-import React, { useState, Suspense } from "react"
+import React, { useState, useEffect, Suspense } from "react"
 import { Canvas } from "react-three-fiber"
 import { OrbitControls, PerspectiveCamera } from "drei"
-import { useQuery, gql } from "@apollo/client"
+import { useLazyQuery, gql } from "@apollo/client"
 
 import Cumi from "./cumi"
 import Skull from "./skull"
@@ -11,7 +11,6 @@ import Asteroids from "./asteroid"
 import Stars from "./stars"
 import Ceres from "./ceres"
 import Confirmation from "./confirmation"
-import Speak from "../speak"
 
 const SHEETPOEM_QUERY = gql`
   query {
@@ -24,11 +23,17 @@ const SHEETPOEM_QUERY = gql`
 `
 
 export default function Scene() {
-  const { data, loading, error } = useQuery(SHEETPOEM_QUERY, {
+  const [ready, setReady] = useState(false)
+  const [loadWords, { data, loading }] = useLazyQuery(SHEETPOEM_QUERY, {
     pollInterval: 20 * 1000,
   })
-  const [ready, setReady] = useState(false)
-
+  useEffect(() => {
+    if (data) {
+      const msg = new SpeechSynthesisUtterance(data.sheetpoem)
+      msg.rate = 0.8
+      window.speechSynthesis.speak(msg)
+    }
+  })
   return (
     <Canvas shadowMap style={{ position: "absolute", top: 0 }}>
       <PerspectiveCamera makeDefault />
@@ -57,14 +62,14 @@ export default function Scene() {
         <Asteroids />
       </Suspense>
       {ready ? (
-        <React.Fragment>
-          <Text>
-            {data ? data.sheetpoem : loading ? "loading..." : error.message}
-          </Text>
-          <Speak words={data && data.sheetpoem} />
-        </React.Fragment>
+        <Text>{data ? data.sheetpoem : loading && "loading..."}</Text>
       ) : (
-        <Confirmation onPointerDown={() => setReady(!ready)} />
+        <Confirmation
+          onPointerDown={() => {
+            setReady(!ready)
+            loadWords()
+          }}
+        />
       )}
     </Canvas>
   )
