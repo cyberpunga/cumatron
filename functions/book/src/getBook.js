@@ -1,20 +1,10 @@
 const path = require("path")
 const PDFDocument = require("pdfkit")
 
-const getBookData = require("./getBookData")
-const getRandomImage = require("./getRandomImage")
-
-const { g11x, pasteText } = require("cumatronize")
-
 const moment = require("moment")
 moment.updateLocale("es", require("moment/locale/es"))
 
-const getBook = async () => {
-  const randomImg = await getRandomImage()
-  const g11xed = await g11x(randomImg)
-  const { title, content } = await getBookData()
-  const m3m3 = await pasteText(g11xed, title)
-
+const getBook = async ({ cover, title, content }) => {
   const [pageWidth, pageHeight] = [480, 640]
   const [marginX, marginY] = [20, 20]
   const bodyFontSize = 16
@@ -39,7 +29,7 @@ const getBook = async () => {
   // Cover
   doc
     .image(path.join(__dirname, "../images/pattern.png"), 0, 0)
-    .image(m3m3, marginX, marginY, {
+    .image(cover, marginX, marginY, {
       fit: [pageWidth - marginX * 2, pageHeight - marginY * 2],
       align: "center",
       valign: "center",
