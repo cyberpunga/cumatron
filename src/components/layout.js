@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, navigate } from "gatsby"
 import { MessageSquare, Book } from "react-feather"
 
 import "orgdot-org-v01"
@@ -28,10 +28,11 @@ export default ({ children }) => {
     <div
       style={{
         width: "100%",
+        height: `100%`,
         margin: "0 auto",
         display: `flex`,
         flexDirection: `column`,
-        minHeight: `100vh`,
+        position: "relative",
       }}
     >
       <header
@@ -45,10 +46,12 @@ export default ({ children }) => {
         }}
       >
         <h1
+          onClick={() => navigate("/")}
           style={{
             flex: 1,
             margin: "8px",
             padding: "0 8px",
+            cursor: "pointer",
           }}
         >
           {title}
@@ -63,6 +66,8 @@ export default ({ children }) => {
       <main
         style={{
           flex: 1,
+          position: "relative",
+          height: "100%",
         }}
       >
         {children}
