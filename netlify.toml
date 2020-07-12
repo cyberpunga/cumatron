@@ -11,8 +11,8 @@
   targetPort = 8000
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
 
-[[redirects]]
-  from = "/book"
-  to = "/.netlify/functions/book"
-  status = 200
-  force = true # COMMENT: ensure that we always redirect
+## [[redirects]]
+##   from = "/book"
+##   to = "/.netlify/functions/book"
+##   status = 200
+##   force = true # COMMENT: ensure that we always redirect
