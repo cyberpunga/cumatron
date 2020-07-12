@@ -1,6 +1,7 @@
-import React, { useRef } from "react"
+import React from "react"
+import { navigate } from "gatsby"
 import { Plane } from "drei"
-import { useLoader, useFrame } from "react-three-fiber"
+import { useLoader } from "react-three-fiber"
 import { TextureLoader, DoubleSide } from "three"
 
 function PlaneIcon(props) {
@@ -9,11 +10,7 @@ function PlaneIcon(props) {
     <Plane
       {...props}
       args={[1, 0.9566666666666667]}
-      onPointerDown={e =>
-        e.stopPropagation() &&
-        window &&
-        window.open("https://cumatron.win/book")
-      }
+      onPointerDown={e => e.stopPropagation() && navigate("/book")}
     >
       <meshLambertMaterial
         attach="material"
@@ -34,23 +31,4 @@ function SpriteIcon(props) {
   )
 }
 
-const Icons = props => {
-  const ref = useRef()
-  useFrame(() => {
-    ref.current.rotation.y -= 0.008
-  })
-  return (
-    <group ref={ref} {...props}>
-      {
-        // <SpriteIcon position={[2, 2, -2]} />
-        // <SpriteIcon position={[-2, 2, -2]} />
-        // <SpriteIcon position={[2, 2, 2]} />
-      }
-      <PlaneIcon position={[2, 2, 0]} rotation={[0, 0, 0.3]} />
-      <SpriteIcon position={[-2, 2, 2]} />}
-    </group>
-  )
-}
-
-export default Icons
 export { PlaneIcon, SpriteIcon }
