@@ -1,5 +1,4 @@
 import React from "react"
-import { navigate } from "gatsby"
 import { Plane } from "drei"
 import { useLoader } from "react-three-fiber"
 import { TextureLoader, DoubleSide } from "three"
@@ -7,16 +6,13 @@ import { TextureLoader, DoubleSide } from "three"
 function PlaneIcon(props) {
   const texture = useLoader(TextureLoader, "/pdf-icon.png")
   return (
-    <Plane
-      {...props}
-      args={[1, 0.9566666666666667]}
-      onPointerDown={e => e.stopPropagation() && navigate("/book")}
-    >
+    <Plane {...props} args={[1, 0.9566666666666667]}>
       <meshLambertMaterial
         attach="material"
         map={texture}
         transparent={true}
         side={DoubleSide}
+        alphaTest={0.5}
       />
     </Plane>
   )
