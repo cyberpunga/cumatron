@@ -7,7 +7,7 @@ const Ceres = props => {
   return (
     <mesh {...props}>
       <sphereBufferGeometry attach="geometry" args={[5, 8, 8]} />
-      <meshLambertMaterial attach="material" map={texture} />
+      <meshStandardMaterial attach="material" map={texture} />
     </mesh>
   )
 }
