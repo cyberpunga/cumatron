@@ -45,13 +45,13 @@ for (let i = 0; i < 240; i++) {
   )
 }
 
-const Asteroids = () => {
+const Asteroids = props => {
   const ref = useRef()
   useFrame(() => {
     ref.current.rotation.y -= 0.002
   })
   return (
-    <group ref={ref} rotation={[-0.4, 0, -0.2]} position={[1, -5.4, -1]}>
+    <group ref={ref} {...props}>
       {asteroids}
     </group>
   )
