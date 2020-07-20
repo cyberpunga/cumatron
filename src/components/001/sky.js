@@ -3,7 +3,7 @@ import { useLoader } from "react-three-fiber"
 import { TextureLoader } from "three"
 
 const Sky = props => {
-  const texture = useLoader(TextureLoader, "/tycho8z.jpg")
+  const texture = useLoader(TextureLoader, "/gcenter360_sm.jpg")
   return (
     <mesh {...props}>
       <sphereBufferGeometry attach="geometry" args={[-500, 8, 8]} />
