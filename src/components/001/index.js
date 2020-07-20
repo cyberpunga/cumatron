@@ -37,23 +37,25 @@ export default function Scene() {
     }
   })
   return (
-    <Canvas shadowMap style={{ position: "absolute", top: 0 }}>
-      <PerspectiveCamera makeDefault near={1} />
-      <pointLight castShadow position={[-10, 32, 32]} color="yellow" />
-      <pointLight castShadow position={[10, -32, 0]} color="violet" />
+    <Canvas shadowMap>
+      <ambientLight intensity={0.4} color="orange" />
+      <pointLight position={[8, 0, 24]} intensity={0.8} color="red" />
+      <pointLight position={[16, 6.2, 24]} color="yellow" castShadow />
+      <PerspectiveCamera makeDefault near={1} position={[2, 1.6, 8]} />
       <OrbitControls
         enableDamping
         dampingFactor={0.08}
         minDistance={8}
-        maxDistance={80}
-        enableKeys={false}
+        maxDistance={32}
         enablePan={false}
+        enableKeys={false}
         minPolarAngle={1}
         maxPolarAngle={2}
       />
       <Stars />
       <Suspense fallback={null}>
         <Sky />
+        <Asteroids rotation={[-0.4, 0, -0.2]} position={[1, -5.4, -1]} />
         <Skull
           scale={[0.3, 0.3, 0.3]}
           position={[-1, -0.8, 2]}
@@ -81,10 +83,9 @@ export default function Scene() {
             }
           }}
         />
-        <Asteroids />
       </Suspense>
       <Text>
-        {ready ? (data ? data.sheetpoem : loading && "loading...") : ""}
+        {ready ? (data ? data.sheetpoem : loading && "cargando...") : "..."}
       </Text>
     </Canvas>
   )
