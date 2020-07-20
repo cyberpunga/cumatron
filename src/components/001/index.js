@@ -38,7 +38,7 @@ export default function Scene() {
   })
   return (
     <Canvas shadowMap>
-      <ambientLight intensity={0.4} color="orange" />
+      <ambientLight intensity={0.4} color="#881111" />
       <pointLight position={[8, 0, 24]} intensity={0.8} color="red" />
       <pointLight position={[16, 6.2, 24]} color="yellow" castShadow />
       <PerspectiveCamera makeDefault near={1} position={[2, 1.6, 8]} />
