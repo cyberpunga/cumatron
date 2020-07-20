@@ -9,7 +9,7 @@ for (let i = 0; i < 800; i++) {
       <dodecahedronBufferGeometry attach="geometry" args={[0.5, 0]} />
       <meshBasicMaterial
         attach="material"
-        color={Math.random() > 0.8 ? "hotpink" : "#ffffff"}
+        color={Math.random() > 0.8 ? "yellow" : "#ffffff"}
       />
     </mesh>
   )
