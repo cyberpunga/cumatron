@@ -1,6 +1,6 @@
 import React from "react"
-import { useStaticQuery, graphql, navigate } from "gatsby"
-import { MessageSquare, Book } from "react-feather"
+import { useStaticQuery, graphql, Link } from "gatsby"
+import { MessageSquare, Twitter } from "react-feather"
 
 import "orgdot-org-v01"
 import "./layout.css"
@@ -46,7 +46,6 @@ export default ({ children }) => {
         }}
       >
         <h1
-          onClick={() => navigate("/")}
           style={{
             flex: 1,
             margin: "8px",
@@ -54,13 +53,25 @@ export default ({ children }) => {
             cursor: "pointer",
           }}
         >
-          {title}
+          <Link style={{ textDecoration: "none", color: "orange" }} to="/">
+            {title}
+          </Link>
         </h1>
-        <a href="https://t.me/cumatron_bot" target="_blank" rel="noreferrer">
+        <a
+          style={{ textDecoration: "none", color: "orange" }}
+          href="https://t.me/cumatron_bot"
+          target="_blank"
+          rel="noreferrer"
+        >
           <MessageSquare style={{ marginRight: "8px" }} />
         </a>
-        <a href="/book" target="_blank" rel="noreferrer">
-          <Book style={{ marginRight: "8px" }} />
+        <a
+          style={{ textDecoration: "none", color: "orange" }}
+          href="https://twitter.com/cumatron_win"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Twitter style={{ marginRight: "8px" }} />
         </a>
       </header>
       <main
@@ -83,7 +94,10 @@ export default ({ children }) => {
         >
           © {new Date().getFullYear()}, Hecho en
           {` `}
-          <a style={{ textDecoration: "none" }} href={author_url}>
+          <a
+            style={{ textDecoration: "none", color: "orange" }}
+            href={author_url}
+          >
             {author}
           </a>
         </p>
