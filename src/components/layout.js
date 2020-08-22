@@ -27,21 +27,20 @@ export default ({ children }) => {
   return (
     <div
       style={{
+        position: "relative",
         width: "100%",
         height: `100%`,
-        margin: "0 auto",
-        display: `flex`,
-        flexDirection: `column`,
-        position: "relative",
+        margin: 0,
       }}
     >
       <header
         style={{
+          position: "absolute",
+          width: "100%",
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
           zIndex: 1,
-          background: "#111111",
           color: "#eeeeee",
         }}
       >
@@ -83,7 +82,14 @@ export default ({ children }) => {
       >
         {children}
       </main>
-      <footer style={{ zIndex: 1 }}>
+      <footer
+        style={{
+          position: "absolute",
+          width: "100%",
+          bottom: 0,
+          zIndex: 1,
+        }}
+      >
         <p
           style={{
             margin: "8px",
