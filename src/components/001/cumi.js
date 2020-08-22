@@ -20,11 +20,13 @@ export default function Model(props) {
     <group {...props} dispose={null} onPointerDown={props.onPointerDown}>
       <mesh
         castShadow
+        receiveShadow
         material={materials.Material}
         geometry={nodes.Cube.geometry}
       />
       <a.mesh
         castShadow
+        receiveShadow
         material={materials.Material}
         geometry={nodes.Cube001.geometry}
         position={[0.9, 0.8, 0.96]}
@@ -32,6 +34,7 @@ export default function Model(props) {
       />
       <a.mesh
         castShadow
+        receiveShadow
         material={materials.Material}
         geometry={nodes.Cube002.geometry}
         position={[0.9, -0.6, 0.95]}

@@ -8,6 +8,7 @@ export default function Skull(props) {
     <mesh
       {...props}
       castShadow
+      receiveShadow
       material={materials.Material}
       geometry={nodes.Cube_Skul_0.geometry}
     />
