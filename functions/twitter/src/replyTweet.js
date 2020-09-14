@@ -12,11 +12,25 @@ const twitter = new Twitter({
 })
 
 async function post(content, replyTo) {
-  await twitter.post("statuses/update", {
-    status: content,
-    in_reply_to_status_id: replyTo,
-    auto_populate_reply_metadata: true,
-  })
+  try {
+    await twitter.post("statuses/update", {
+      status: content,
+      in_reply_to_status_id: replyTo,
+      auto_populate_reply_metadata: true,
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function tweet(content) {
+  try {
+    await twitter.post("statuses/update", {
+      status: content,
+    })
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 async function replyTweet(event) {
@@ -80,4 +94,4 @@ async function replyTweet(event) {
   }
 }
 
-module.exports = { replyTweet }
+module.exports = { replyTweet, tweet }
