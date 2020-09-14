@@ -53,10 +53,9 @@ async function replyDirectMessage(event) {
   if (senderId === recipientId) return
   console.log(`${senderScreenName} says ${messageText}`)
   if (recipientId === myId) {
-    const meaning = await wit.meaning(messageText)
-    const intent = meaning.intents[0]
-    if (intent.name) {
-      switch (intent.name) {
+    const { intents } = await wit.meaning(messageText)
+    if (intents.length) {
+      switch (intents[0].name) {
         case "greeting":
           const greeting = await getData({ range: "F1:G1000", verses: 1 })
           // await markAsRead(message.message_create.id, senderId)

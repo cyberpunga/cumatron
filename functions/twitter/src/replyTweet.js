@@ -1,10 +1,20 @@
 const Twitter = require("twitter-lite")
 const TelegrafWit = require("telegraf-wit")
+const { g11x, pasteText } = require("cumatronize")
 
 const getData = require("./getData")
+const storePic = require("./storePic")
 
 const wit = new TelegrafWit(process.env.WIT_TOKEN)
+
 const twitter = new Twitter({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+})
+const twitterUpload = new Twitter({
+  subdomain: "upload",
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN,
@@ -23,6 +33,30 @@ async function post(content, replyTo) {
   }
 }
 
+async function postWithImage(content, replyTo, attachment) {
+  try {
+    await twitter.post("statuses/update", {
+      status: content,
+      in_reply_to_status_id: replyTo,
+      auto_populate_reply_metadata: true,
+      media_ids: attachment,
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function upload(media) {
+  try {
+    const success = await twitterUpload.post("media/upload", {
+      media_data: media.toString("base64"),
+    })
+    return success
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 async function tweet(content) {
   try {
     await twitter.post("statuses/update", {
@@ -35,14 +69,28 @@ async function tweet(content) {
 
 async function replyTweet(event) {
   const message = event.tweet_create_events.shift()
-  if (
-    message.in_reply_to_user_id_str === "1029886558940356608" ||
-    message.text.includes("@cumatron_win")
-  ) {
-    const meaning = await wit.meaning(message.text)
-    const intent = meaning.intents[0]
-    if (intent.name) {
-      switch (intent.name) {
+  const messageText = message.text.replace("@cumatron_win", "")
+
+  if (message.user.id_str !== process.env.TWITTER_ACCESS_TOKEN.split("-")[0]) {
+    const { media } = message.entities
+
+    if (media && media.length) {
+      const photo = media.find(item => item.type === "photo")
+      if (photo) {
+        const url = photo.media_url_https
+        const sheetVerses = await getData({ range: "A1:A1000", verses: 4 })
+        const g11xed = await g11x(url)
+        const m3m3 = await pasteText(g11xed, sheetVerses)
+        // const l1nk = await storePic(m3m3)
+        const mimi = await upload(m3m3)
+        await postWithImage(sheetVerses, message.id_str, mimi.media_id_string)
+        return
+      }
+    }
+
+    const { intents } = await wit.meaning(messageText)
+    if (intents.length) {
+      switch (intents[0].name) {
         case "greeting":
           const greeting = await getData({ range: "F1:G1000", verses: 1 })
           await post(greeting, message.id_str)
