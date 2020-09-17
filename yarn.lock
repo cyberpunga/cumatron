@@ -12930,10 +12930,10 @@ twitter-autohook@^1.7.1:
     ngrok "^3.2.1"
     nock "^12.0.2"
 
-twitter-lite@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/twitter-lite/-/twitter-lite-0.13.0.tgz#e92ef340faba9a45c819ec5b2489a9e76a2b8b28"
-  integrity sha512-UQxOqiZIx6BbWMNXrFhDThHf0RYuAWe02+0wHbsww61iIPeJdaakM+HJJlf8QKzIyu8q6JCZ4K9vpd55sg0V7g==
+twitter-lite@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/twitter-lite/-/twitter-lite-0.14.0.tgz#5ec32d31e693007572d060858f2746ac8aed1a7d"
+  integrity sha512-AP7jnuEBIMA18fi3IDWT7fTOJVpZrl1ZwJKunGf2iknKv5BH4mpwBvJmu3RP59XHZFL3ckUcGGRw/INVRikBBg==
   dependencies:
     cross-fetch "^3.0.0"
     oauth-1.0a "^2.2.4"
