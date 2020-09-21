@@ -9,7 +9,8 @@ const config = {
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   env: process.env.TWITTER_WEBHOOK_ENV,
 }
-const setWebhook = async () => {
+
+async function setWebhook() {
   try {
     let url
     if (process.argv[2]) {

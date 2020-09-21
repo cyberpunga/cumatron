@@ -42,9 +42,7 @@ async function likeTweet(content) {
 async function uploadImage(media) {
   const client = getClient("upload")
   try {
-    const success = await client.post("media/upload", {
-      media_data: media.toString("base64"),
-    })
+    const success = await client.post("media/upload", media)
     return success
   } catch (e) {
     console.log(e)
@@ -54,49 +52,44 @@ async function uploadImage(media) {
 async function indicateTyping(recipient_id) {
   const client = getClient()
   try {
-    await client.post("direct_messages/indicate_typing", {
-      recipient_id,
-    })
+    await client.post("direct_messages/indicate_typing", recipient_id)
   } catch (e) {
     console.error(e)
   }
 }
 
-async function sendDirectMessage(text, recipient_id) {
+async function sendDirectMessage(content) {
   const client = getClient()
   try {
-    await client.post("direct_messages/events/new", {
-      event: {
-        type: "message_create",
-        message_create: {
-          target: {
-            recipient_id,
-          },
-          message_data: {
-            text,
-          },
-        },
-      },
-    })
+    await client.post("direct_messages/events/new", content)
   } catch (e) {
     console.error(e)
   }
-}
-
-async function replyTweet(event) {
-  await tweet(event)
 }
 
 async function replyDirectMessage(text, sender_id) {
-  await indicateTyping(sender_id)
-  await sendDirectMessage(text, sender_id)
+  await indicateTyping({
+    recipient_id: sender_id,
+  })
+  await sendDirectMessage({
+    event: {
+      type: "message_create",
+      message_create: {
+        target: {
+          recipient_id: sender_id,
+        },
+        message_data: {
+          text,
+        },
+      },
+    },
+  })
 }
 
 module.exports = {
   validateWebhook,
   tweet,
   likeTweet,
-  replyTweet,
   replyDirectMessage,
   uploadImage,
 }
