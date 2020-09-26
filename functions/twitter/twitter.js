@@ -12,15 +12,19 @@ exports.handler = async ({ queryStringParameters, body }) => {
         statusCode: 200,
       }
     }
+    if (queryStringParameters.trigger) {
+      await onTrigger()
+      return {
+        body: "OK", // return something
+        statusCode: 200,
+      }
+    }
     const { direct_message_events, tweet_create_events } = JSON.parse(body)
     if (direct_message_events) {
       await onDirectMessage(direct_message_events)
     }
     if (tweet_create_events) {
       await onTweet(tweet_create_events)
-    }
-    if (queryStringParameters.trigger) {
-      await onTrigger()
     }
     return {
       body: "OK", // return something
