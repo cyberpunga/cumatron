@@ -5,10 +5,10 @@
   publish = "public"
 
 [dev]
-  command = "yarn start" # Command to start your dev server
+  # command = "yarn start" # Command to start your dev server
   port = 8888 # Port that the dev server will be listening on
   publish = "public" # Folder with the static content for _redirect file
-  targetPort = 8000
+  # targetPort = 8000
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
 
 ## [[redirects]]
