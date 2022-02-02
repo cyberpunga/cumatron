@@ -2,7 +2,7 @@ const Telegraf = require("telegraf")
 const onText = require("./src/onText")
 const onPhoto = require("./src/onPhoto")
 
-const telegraf = new Telegraf(process.env.BOT_TOKEN)
+const telegraf = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 
 telegraf.start(({ reply }) => reply("Welcome!"))
 telegraf.on("sticker", ({ reply }) => reply("👍"))

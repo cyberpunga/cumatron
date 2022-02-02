@@ -3,7 +3,7 @@ const { g11x, pasteText } = require("cumatronize")
 const getData = require("./getData")
 const storePic = require("./storePic")
 
-const telegram = new Telegram(process.env.BOT_TOKEN)
+const telegram = new Telegram(process.env.TELEGRAM_BOT_TOKEN)
 
 const onPhoto = async ({ update, replyWithPhoto }) => {
   const file = update.message.photo.pop().file_id // the last element from photo array has the largest image size
