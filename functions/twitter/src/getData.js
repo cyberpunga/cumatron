@@ -1,7 +1,7 @@
 const { request } = require("graphql-request")
 
 const getData = async ({ range, verses }) => {
-  const endpoint = process.env.SHEETPOETRY_API_ENDPOINT
+  const endpoint = "https://sheetpoetry.xyz/api"
   const spreadsheetId = "16bLauoyWcJy6aevXTagkHHnlgW2KZufXhHocVQ92qOg"
   const query = `
     query getWords($spreadsheetId: String!, $range: String!, $verses: Int) {
