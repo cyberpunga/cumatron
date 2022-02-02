@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 module.exports = {
   siteMetadata: {
     title: `cumatron`,
@@ -18,6 +20,21 @@ module.exports = {
         theme_color: `#111111`,
         display: `minimal-ui`,
         icon: `src/images/cumi-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-source-cloudinary`,
+      options: {
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        apiKey: process.env.CLOUDINARY_API_KEY,
+        apiSecret: process.env.CLOUDINARY_API_SECRET,
+        // resourceType: `image`,
+        // prefix: `/`,
+        // type: `type Value`,
+        maxResults: 10,
+        direction: 2,
+        // start_at: "2022-01-29",
+        // tags:`fetch image tags?`,
       },
     },
   ],
