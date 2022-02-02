@@ -4,7 +4,7 @@ import fetch from "isomorphic-fetch"
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: "https://sheetpoetry.xyz/api", // "/.netlify/functions/sheetpoetry",
+    uri: process.env.SHEETPOETRY_API_ENDPOINT,
     fetch,
   }),
 })
