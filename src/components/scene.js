@@ -62,8 +62,12 @@ function Skull(props) {
 
 function PlaneIcon(props) {
   const texture = useTexture("/pdf-icon.png");
+  const handleClick = (e) => {
+    e.stopPropagation();
+    navigate("/book");
+  };
   return (
-    <Plane {...props} args={[1, 0.9566666666666667]}>
+    <Plane {...props} args={[1, 0.9566666666666667]} onClick={handleClick}>
       <meshLambertMaterial attach="material" map={texture} transparent={true} side={DoubleSide} alphaTest={0.5} />
     </Plane>
   );
@@ -123,7 +127,6 @@ function Asteroids(props) {
               castShadow
               position={[(10 + Math.random() * 2) * Math.cos(i), Math.random() * 3, (10 + Math.random() * 2) * Math.sin(i)]}
               rotation={[Math.random(), Math.random(), Math.random()]}
-              onPointerDown={(e) => e.stopPropagation() && navigate("/book")}
             />
           );
         return (
