@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useTransition, a } from "react-spring"
+import { useTransition, a } from "@react-spring/web"
 import { DefaultLoadingManager } from "three"
 
 export default function Loading({ onLoad, isLoaded }) {
