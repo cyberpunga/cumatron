@@ -1,27 +1,28 @@
-const getBook = require("./src/getBook")
-const getBookData = require("./src/getBookData")
-const getRandomImage = require("./src/getRandomImage")
-const { g11x, pasteText } = require("cumatronize")
+const createPDF = require("./src/getBook");
+const getBookData = require("./src/getBookData");
+const getCleanImage = require("./src/getRandomImage");
+const { g11x, pasteText } = require("cumatronize");
+const slugify = require("slugify");
 
 exports.handler = async () => {
   try {
-    const randomImage = await getRandomImage()
-    const g1itchedImage = await g11x(randomImage)
-    const { title, content } = await getBookData()
-    const cover = await pasteText(g1itchedImage, title)
-    const book = await getBook({ cover, title, content })
-    const filename = "cumi-" + title.trim().slice(0, 32)
+    const cleanImage = await getCleanImage();
+    const g1itchedImage = await g11x(cleanImage);
+    const { title, content } = await getBookData();
+    const cover = await pasteText(g1itchedImage, title);
+    const filename = "cumi-" + slugify(title, { lower: true, strict: true }) + ".pdf";
+    const body = await createPDF({ cover, title, content });
     return {
       statusCode: 200,
       isBase64Encoded: true,
       headers: {
         "Content-Type": "application/pdf",
         "Accept-Ranges": "bytes",
-        "Content-Disposition": `inline; filename=${filename}.pdf`, // key of success
+        "Content-Disposition": `inline; filename=${filename}`, // key of success
       },
-      body: book,
-    }
+      body,
+    };
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
