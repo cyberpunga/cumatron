@@ -1,2 +1,2 @@
 [functions]
-  included_files = ["static", "src/utils"]
+included_files = ["static/*", "src/utils/*"]
