@@ -1,20 +1,29 @@
 const PDFDocument = require("pdfkit");
 const path = require("path");
 const moment = require("moment");
+const { g11x, pasteText } = require("cumatronize");
+
+const { getCleanImage } = require("../../../../src/utils/cloudinary");
 
 moment.updateLocale("es", require("moment/locale/es"));
 const date = moment().format("LL");
 
-const getBook = async ({ cover, title, content }) => {
+const createPDF = async ({ title, content }) => {
   const [pageWidth, pageHeight] = [480, 640];
   const [marginX, marginY] = [20, 20];
   const [textMarginX, textMarginY] = [72, 36];
 
+  const background = path.join(__dirname, "../../../../static/pattern.png");
+  const logo = path.join(__dirname, "../../../../static/cumi-icon.png");
   const headingFont = path.join(__dirname, "../../../../node_modules/orgdot-org-v01/Orgv01.woff");
   const bodyFont = path.join(__dirname, "../../../../node_modules/typeface-raleway/files/raleway-latin-200.woff");
   const headingFontSize = 20;
   const bodyFontSize = 16;
   const notesFontSize = 8;
+
+  const cleanImage = await getCleanImage();
+  const g1itchedImage = await g11x(cleanImage);
+  const cover = await pasteText(g1itchedImage, title);
 
   const getVerticalCenter = (font, fontSize, text) =>
     pageHeight / 2 -
@@ -29,7 +38,7 @@ const getBook = async ({ cover, title, content }) => {
   });
 
   // Cover
-  doc.image(path.join(__dirname, "../images/pattern.png"), 0, 0).image(cover, marginX, marginY, {
+  doc.image(background, 0, 0).image(cover, marginX, marginY, {
     fit: [pageWidth - marginX * 2, pageHeight - marginY * 2],
     align: "center",
     valign: "center",
@@ -100,8 +109,8 @@ const getBook = async ({ cover, title, content }) => {
 
   doc
     .addPage()
-    .image(path.join(__dirname, "../images/pattern.png"), 0, 0)
-    .image(path.join(__dirname, "../images/icon.png"), 0, 400, {
+    .image(background, 0, 0)
+    .image(logo, 0, 400, {
       fit: [480, 96],
       align: "center",
       valign: "center",
@@ -133,4 +142,4 @@ const getBook = async ({ cover, title, content }) => {
   });
 };
 
-module.exports = getBook;
+module.exports = { createPDF };
