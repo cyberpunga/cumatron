@@ -1,37 +1,58 @@
+const { request, gql } = require("graphql-request");
+const { getCleanImage } = require("./cloudinary");
+const { g11x, pasteText } = require("cumatronize");
 const PDFDocument = require("pdfkit");
 const path = require("path");
-const moment = require("moment");
-const { g11x, pasteText } = require("cumatronize");
 
-const { getCleanImage } = require("../../../../src/utils/cloudinary");
+const moment = require("moment");
 
 moment.updateLocale("es", require("moment/locale/es"));
 const date = moment().format("LL");
 
-const createPDF = async ({ title, content }) => {
+async function getBookData() {
+  const bookQuery = gql`
+    {
+      content: sheetpoem(spreadsheetId: "16bLauoyWcJy6aevXTagkHHnlgW2KZufXhHocVQ92qOg", range: "A1:A1000", verses: 200)
+      title: sheetpoem(spreadsheetId: "16bLauoyWcJy6aevXTagkHHnlgW2KZufXhHocVQ92qOg", range: "C1:E1000", verses: 1)
+    }
+  `;
+  const { content, title } = await request("https://sheetpoetry.xyz/api", bookQuery);
+  return { content, title };
+}
+
+async function createCoverImage(image, text) {
+  const glitched = await g11x(image);
+  const withText = await pasteText(glitched, text);
+  return withText;
+}
+
+async function createPDF() {
+  const { content, title } = await getBookData();
+  const image = await getCleanImage();
+  const cover = await createCoverImage(image, title);
+
   const [pageWidth, pageHeight] = [480, 640];
   const [marginX, marginY] = [20, 20];
   const [textMarginX, textMarginY] = [72, 36];
 
-  const background = path.join(__dirname, "../../../../static/pattern.png");
-  const logo = path.join(__dirname, "../../../../static/cumi-icon.png");
-  const headingFont = path.join(__dirname, "../../../../node_modules/orgdot-org-v01/Orgv01.woff");
-  const bodyFont = path.join(__dirname, "../../../../node_modules/typeface-raleway/files/raleway-latin-200.woff");
+  const background = path.join(__dirname, "../../static/pattern.png");
+  const logo = path.join(__dirname, "../../static/cumi-icon.png");
+  const headingFont = path.join(__dirname, "../../node_modules/orgdot-org-v01/Orgv01.woff");
+  const bodyFont = path.join(__dirname, "../../node_modules/typeface-raleway/files/raleway-latin-200.woff");
   const headingFontSize = 20;
   const bodyFontSize = 16;
   const notesFontSize = 8;
 
-  const cleanImage = await getCleanImage();
-  const g1itchedImage = await g11x(cleanImage);
-  const cover = await pasteText(g1itchedImage, title);
-
-  const getVerticalCenter = (font, fontSize, text) =>
-    pageHeight / 2 -
-    doc
-      .font(font)
-      .fontSize(fontSize)
-      .heightOfString(text) /
-      2;
+  function getVerticalCenter(pageHeight, font, fontSize, text) {
+    return (
+      pageHeight / 2 -
+      doc
+        .font(font)
+        .fontSize(fontSize)
+        .heightOfString(text) /
+        2
+    );
+  }
 
   const doc = new PDFDocument({
     size: [pageWidth, pageHeight],
@@ -49,7 +70,7 @@ const createPDF = async ({ title, content }) => {
     .addPage()
     .font(headingFont)
     .fontSize(headingFontSize)
-    .text(title, textMarginX, getVerticalCenter(headingFont, headingFontSize, title));
+    .text(title, textMarginX, getVerticalCenter(pageHeight, headingFont, headingFontSize, title));
 
   // Prologue
   doc
@@ -88,7 +109,7 @@ const createPDF = async ({ title, content }) => {
       .addPage()
       .font(bodyFont)
       .fontSize(bodyFontSize)
-      .text(pageText, textMarginX, getVerticalCenter(bodyFont, bodyFontSize, pageText), {
+      .text(pageText, textMarginX, getVerticalCenter(pageHeight, bodyFont, bodyFontSize, pageText), {
         align: "left",
       })
       .font(bodyFont)
@@ -105,7 +126,7 @@ const createPDF = async ({ title, content }) => {
     .addPage()
     .font(bodyFont)
     .fontSize(bodyFontSize)
-    .text("Final de archivo.", textMarginX, getVerticalCenter(bodyFont, bodyFontSize, "Final de archivo."), { align: "center" });
+    .text("Final de archivo.", textMarginX, getVerticalCenter(pageHeight, bodyFont, bodyFontSize, "Final de archivo."), { align: "center" });
 
   doc
     .addPage()
@@ -140,6 +161,6 @@ const createPDF = async ({ title, content }) => {
     doc.on("end", () => resolve(Buffer.concat(buffers).toString("base64")));
     doc.on("error", reject);
   });
-};
+}
 
 module.exports = { createPDF };
