@@ -1,2 +1,7 @@
 [functions]
-included_files = ["./static/*", "./src/utils/*"]
+included_files = [
+  "./static/*",
+  "./src/utils/*",
+  "./node_modules/orgdot-org-v01/Orgv01.woff",
+  "./node_modules/typeface-raleway/files/raleway-latin-200.woff",
+]
