@@ -1,8 +1,6 @@
 const { createPDF } = require("../../src/utils/createPDF");
-const gleech = require("gleech");
 
 exports.handler = async () => {
-  console.log(gleech);
   try {
     const fileContent = await createPDF();
     const fileName = "cumi - " + Date.now() + ".pdf";
