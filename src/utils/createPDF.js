@@ -1,5 +1,5 @@
 const { request, gql } = require("graphql-request");
-const { getCleanImage } = require("./cloudinary");
+const { getResources } = require("./cloudinary");
 const { createMeme } = require("./createMeme");
 const PDFDocument = require("pdfkit");
 const path = require("path");
@@ -20,10 +20,13 @@ async function getBookData() {
   return { content, title };
 }
 
+const pickRandomElement = (array) => array[Math.floor(Math.random() * array.length)];
+
 async function createPDF() {
   const { content, title } = await getBookData();
-  const image = await getCleanImage();
-  const cover = await createMeme(image, title);
+  const images = await getResources();
+  const random = pickRandomElement(images).secure_url.replace(/\/upload\/v([0-9])\w+\//g, "/upload/w_480/");
+  const bookCover = await createMeme(random, title);
 
   const [pageWidth, pageHeight] = [480, 640];
   const [marginX, marginY] = [20, 20];
@@ -53,7 +56,7 @@ async function createPDF() {
   });
 
   // Cover
-  doc.image(background, 0, 0).image(cover, marginX, marginY, {
+  doc.image(background, 0, 0).image(bookCover, marginX, marginY, {
     fit: [pageWidth - marginX * 2, pageHeight - marginY * 2],
     align: "center",
     valign: "center",

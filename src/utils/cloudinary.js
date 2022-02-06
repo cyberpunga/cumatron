@@ -6,13 +6,22 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const getCleanImage = async () => {
-  const { resources } = await cloudinary.api.resources({
-    type: "upload",
-    prefix: "clean/",
-  });
-  const random = resources[Math.floor(Math.random() * resources.length)];
-  return random.secure_url.replace(/\/upload\/v([0-9])\w+\//g, "/upload/w_480/");
+const getResources = async () => {
+  try {
+    const { resources } = await cloudinary.api.resources({ type: "upload", prefix: "clean/" });
+    return resources;
+  } catch (error) {
+    throw error;
+  }
 };
 
-module.exports = { getCleanImage };
+const storeUpload = async (file) => {
+  try {
+    const { secure_url } = await cloudinary.uploader.upload("data:image/png;base64," + file.toString("base64"));
+    return secure_url;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { getResources, storeUpload };
