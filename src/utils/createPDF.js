@@ -1,6 +1,6 @@
 const { request, gql } = require("graphql-request");
 const { getCleanImage } = require("./cloudinary");
-const { g11x, pasteText } = require("cumatronize");
+const { createMeme } = require("./createMeme");
 const PDFDocument = require("pdfkit");
 const path = require("path");
 
@@ -20,16 +20,10 @@ async function getBookData() {
   return { content, title };
 }
 
-async function createCoverImage(image, text) {
-  const glitched = await g11x(image);
-  const withText = await pasteText(glitched, text);
-  return withText;
-}
-
 async function createPDF() {
   const { content, title } = await getBookData();
   const image = await getCleanImage();
-  const cover = await createCoverImage(image, title);
+  const cover = await createMeme(image, title);
 
   const [pageWidth, pageHeight] = [480, 640];
   const [marginX, marginY] = [20, 20];
