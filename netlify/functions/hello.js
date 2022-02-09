@@ -13,7 +13,7 @@ exports.handler = async (req) => {
     const meme = await createMeme(random, sheetpoem);
 
     const { media_id_string } = await uploadImage({
-      media_data: meme,
+      media_data: meme.toString("base64"),
     });
     await tweet({
       status: sheetpoem,
