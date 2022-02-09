@@ -1,5 +1,5 @@
 const { sheetpoetry } = require("../../src/utils");
-const { getResources } = require("../../src/cloudinary");
+const { getResources } = require("../../src/utils/cloudinary");
 const { createMeme } = require("../../src/utils/createMeme");
 const { tweet, uploadImage } = require("../../src/utils/twitter");
 
