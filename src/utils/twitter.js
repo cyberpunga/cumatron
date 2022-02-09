@@ -17,7 +17,6 @@ function validateWebhook(token) {
     .createHmac("sha256", process.env.TWITTER_CONSUMER_SECRET)
     .update(token)
     .digest("base64");
-
   return responseToken;
 }
 
