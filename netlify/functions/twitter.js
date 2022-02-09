@@ -1,7 +1,8 @@
 const { sheetpoetry } = require("../../src/utils");
+const { getResources } = require("../../src/utils/cloudinary");
+const { createMeme } = require("../../src/utils/createMeme");
 const { getMeaning } = require("../../src/utils/wit");
 const { tweet, likeTweet, replyDirectMessage, uploadImage, validateWebhook } = require("../../src/utils/twitter");
-const { createMeme } = require("../../src/utils/createMeme");
 
 async function handleDirectMessageEvents(event) {
   const message = event.direct_message_events.shift(); // we extract the first message
@@ -53,6 +54,19 @@ async function handleTweetCreateEvents(event) {
   }
 }
 
+async function handleScheduleEvents() {
+  const sheetpoem = await sheetpoetry("poem");
+  const images = await getResources();
+  const pickRandomElement = (array) => array[Math.floor(Math.random() * array.length)];
+  const random = pickRandomElement(images).secure_url.replace(/\/upload\/v([0-9])\w+\//g, "/upload/w_480/");
+  const meme = await createMeme(random, sheetpoem);
+  const { media_id_string } = await uploadImage({ media_data: meme.toString("base64") });
+  await tweet({
+    status: sheetpoem,
+    media_ids: media_id_string,
+  });
+}
+
 exports.handler = async (req) => {
   // if a crc_token is present, we validate the webhook
   if (req.queryStringParameters.crc_token) {
@@ -80,6 +94,11 @@ exports.handler = async (req) => {
   // we check that the event is a direct message event
   if (event.direct_message_events) {
     handleDirectMessageEvents(event);
+  }
+
+  // check if request is scheduled
+  if (req.headers["user-agent"] === "Netlify Clockwork" && req.body["next_run"]) {
+    handleScheduleEvents();
   }
 
   return {
