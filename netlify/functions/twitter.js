@@ -97,7 +97,8 @@ exports.handler = async (req) => {
   }
 
   // check if request is scheduled
-  if (req.headers["user-agent"] === "Netlify Clockwork" && req.body["next_run"]) {
+  if (req.headers["user-agent"] === "Netlify Clockwork") {
+    console.log("running scheduled task");
     handleScheduleEvents();
   }
 
