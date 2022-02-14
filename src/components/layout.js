@@ -1,9 +1,9 @@
-import React from "react"
-import { useStaticQuery, graphql, Link } from "gatsby"
-import { MessageSquare, Twitter } from "react-feather"
+import React from "react";
+import { useStaticQuery, graphql, Link } from "gatsby";
+import { MessageSquare, Twitter } from "react-feather";
 
-import "orgdot-org-v01"
-import "./layout.css"
+import "@fontsource/press-start-2p";
+import "./layout.css";
 
 const SITE = graphql`
   query SiteTitleQuery {
@@ -15,14 +15,14 @@ const SITE = graphql`
       }
     }
   }
-`
+`;
 
 export default ({ children }) => {
   const {
     site: {
       siteMetadata: { title, author, author_url },
     },
-  } = useStaticQuery(SITE)
+  } = useStaticQuery(SITE);
 
   return (
     <div
@@ -100,14 +100,11 @@ export default ({ children }) => {
         >
           © {new Date().getFullYear()}, Hecho en
           {` `}
-          <a
-            style={{ textDecoration: "none", color: "orange" }}
-            href={author_url}
-          >
+          <a style={{ textDecoration: "none", color: "orange" }} href={author_url}>
             {author}
           </a>
         </p>
       </footer>
     </div>
-  )
-}
+  );
+};

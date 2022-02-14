@@ -2,8 +2,8 @@
 included_files = [
   "./static/*",
   "./src/utils/*",
-  "./node_modules/orgdot-org-v01/Orgv01.woff",
-  "./node_modules/typeface-raleway/files/raleway-latin-200.woff",
+  "./node_modules/@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff",
+  "./node_modules/@fontsource/raleway/files/raleway-latin-200-normal.woff",
 ]
 
 [functions."scheduled"]

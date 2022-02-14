@@ -34,8 +34,11 @@ async function createPDF() {
 
   const background = path.join(__dirname, "../../static/pattern.png");
   const logo = path.join(__dirname, "../../static/cumi-icon.png");
-  const headingFont = path.join(__dirname, "../../node_modules/orgdot-org-v01/Orgv01.woff");
-  const bodyFont = path.join(__dirname, "../../node_modules/typeface-raleway/files/raleway-latin-200.woff");
+  const headingFont = path.join(
+    __dirname,
+    "../../node_modules/@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff"
+  );
+  const bodyFont = path.join(__dirname, "../../node_modules/@fontsource/raleway/files/raleway-latin-200-normal.woff");
   const headingFontSize = 20;
   const bodyFontSize = 16;
   const notesFontSize = 8;
@@ -123,7 +126,12 @@ async function createPDF() {
     .addPage()
     .font(bodyFont)
     .fontSize(bodyFontSize)
-    .text("Final de archivo.", textMarginX, getVerticalCenter(pageHeight, bodyFont, bodyFontSize, "Final de archivo."), { align: "center" });
+    .text(
+      "Final de archivo.",
+      textMarginX,
+      getVerticalCenter(pageHeight, bodyFont, bodyFontSize, "Final de archivo."),
+      { align: "center" }
+    );
 
   doc
     .addPage()

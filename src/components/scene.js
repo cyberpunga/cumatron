@@ -2,11 +2,11 @@ import React, { useState, useEffect, Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Loader, Stars, useTexture, useGLTF, Plane, Text as TextImpl } from "@react-three/drei";
 import { useLazyQuery, gql } from "@apollo/client";
-import { DoubleSide, MeshPhongMaterial } from "three";
+import { DoubleSide, MeshPhongMaterial, MathUtils } from "three";
 import { navigate } from "gatsby";
 import { useSpring, a } from "@react-spring/three";
 
-import font from "orgdot-org-v01/Orgv01.woff";
+import font from "@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff";
 
 const SHEETPOEM_QUERY = gql`
   query {
@@ -17,13 +17,7 @@ const SHEETPOEM_QUERY = gql`
 function Text({ children, ...props }) {
   return (
     <TextImpl
-      material={
-        new MeshPhongMaterial({
-          side: DoubleSide,
-          transparent: true,
-          opacity: 0.54,
-        })
-      }
+      material={new MeshPhongMaterial({ side: DoubleSide, transparent: true, opacity: 0.8 })}
       position={[0, 2, -10]}
       rotation={[-0.54, 0, 0.1]}
       fontSize={2}
@@ -57,17 +51,50 @@ function Planet(props) {
 
 function Skull(props) {
   const { nodes, materials } = useGLTF("/skull/skull.gltf");
-  return <mesh {...props} castShadow receiveShadow material={materials.Material} geometry={nodes.Cube_Skul_0.geometry} />;
+  return (
+    <mesh {...props} castShadow receiveShadow material={materials.Material} geometry={nodes.Cube_Skul_0.geometry} />
+  );
 }
 
 function PlaneIcon(props) {
+  const [hover, setHover] = useState(false);
   const texture = useTexture("/pdf-icon.png");
-  const handleClick = (e) => {
-    e.stopPropagation();
-    navigate("/book");
-  };
+  const ref = useRef();
+  useFrame(({ clock }) => {
+    if (hover) {
+      ref.current.scale.x = MathUtils.lerp(ref.current.scale.x, 1.6, 0.4);
+      ref.current.scale.y = MathUtils.lerp(ref.current.scale.y, 1.6, 0.4);
+      return;
+    } else {
+      ref.current.scale.x = MathUtils.lerp(ref.current.scale.x, 1, 0.4);
+      ref.current.scale.y = MathUtils.lerp(ref.current.scale.y, 1, 0.4);
+      // ref.current.rotation.y -= MathUtils.lerp(0.01, 0.02, random);
+      ref.current.rotation.z = MathUtils.lerp(ref.current.rotation.z, clock.elapsedTime * 0.1, 0.1);
+    }
+  });
+  // Change the mouse cursor on hover
+  useEffect(() => {
+    if (hover) document.body.style.cursor = "pointer";
+    return () => (document.body.style.cursor = "auto");
+  }, [hover]);
   return (
-    <Plane {...props} args={[1, 0.9566666666666667]} onClick={handleClick}>
+    <Plane
+      ref={ref}
+      {...props}
+      args={[1, 0.9566666666666667]}
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate("/book");
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHover(true);
+      }}
+      onPointerLeave={(e) => {
+        e.stopPropagation();
+        setHover(false);
+      }}
+    >
       <meshLambertMaterial attach="material" map={texture} transparent={true} side={DoubleSide} alphaTest={0.5} />
     </Plane>
   );
@@ -125,7 +152,11 @@ function Asteroids(props) {
             <PlaneIcon
               key={i}
               castShadow
-              position={[(10 + Math.random() * 2) * Math.cos(i), Math.random() * 3, (10 + Math.random() * 2) * Math.sin(i)]}
+              position={[
+                (10 + Math.random() * 2) * Math.cos(i),
+                Math.random() * 3,
+                (10 + Math.random() * 2) * Math.sin(i),
+              ]}
               rotation={[Math.random(), Math.random(), Math.random()]}
             />
           );
@@ -133,7 +164,11 @@ function Asteroids(props) {
           <mesh
             key={i}
             castShadow
-            position={[(10 + Math.random() * 2) * Math.cos(i), Math.random() * 2, (10 + Math.random() * 2) * Math.sin(i)]}
+            position={[
+              (10 + Math.random() * 2) * Math.cos(i),
+              Math.random() * 2,
+              (10 + Math.random() * 2) * Math.sin(i),
+            ]}
             rotation={[Math.random(), Math.random(), Math.random()]}
             onPointerDown={(e) => e.stopPropagation()}
           >
@@ -175,29 +210,41 @@ export default function Scene() {
           enableKeys={false}
           maxPolarAngle={2}
         />
-        <Stars />
         <Suspense fallback={null}>
+          <Stars />
           <Sky />
-          <Asteroids rotation={[-0.4, 0, -0.2]} position={[1, -5.4, -1]} />
-          <Skull scale={[0.3, 0.3, 0.3]} position={[-1, -0.8, 2]} rotation={[-0.35, -0.8, -0.6]} onPointerDown={(e) => e.stopPropagation()} />
-          <Planet position={[0, -5.3, 0]} rotation={[0, 0, 1]} receiveShadow onPointerDown={(e) => e.stopPropagation()} />
-          <Cumi
-            scale={[0.6, 0.6, 0.6]}
-            position={[0, 0.1, -1]}
-            rotation={[-0.5, 1, 0]}
-            open={ready}
-            onPointerDown={(e) => {
-              e.stopPropagation();
-              setReady(!ready);
-              if (!ready) {
-                loadWords();
-              } else {
-                stopPolling();
-              }
-            }}
-          />
+          <group>
+            <Asteroids rotation={[-0.4, 0, -0.2]} position={[1, -5.4, -1]} />
+            <Skull
+              scale={[0.3, 0.3, 0.3]}
+              position={[-1, -0.8, 2]}
+              rotation={[-0.35, -0.8, -0.6]}
+              onPointerDown={(e) => e.stopPropagation()}
+            />
+            <Planet
+              position={[0, -5.3, 0]}
+              rotation={[0, 0, 1]}
+              receiveShadow
+              onPointerDown={(e) => e.stopPropagation()}
+            />
+            <Cumi
+              scale={[0.6, 0.6, 0.6]}
+              position={[0, 0.1, -1]}
+              rotation={[-0.5, 1, 0]}
+              open={ready}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                setReady(!ready);
+                if (!ready) {
+                  loadWords();
+                } else {
+                  stopPolling();
+                }
+              }}
+            />
+          </group>
+          <Text>{ready ? (data ? data.sheetpoem : loading && "cargando...") : "..."}</Text>
         </Suspense>
-        <Text>{ready ? (data ? data.sheetpoem : loading && "cargando...") : "..."}</Text>
       </Canvas>
       <Loader />
     </React.Fragment>
