@@ -1,7 +1,7 @@
-require("dotenv").config()
+require("dotenv").config();
 
 module.exports = {
-  pathPrefix: `/cumatron`,
+  // pathPrefix: `/cumatron`,
   siteMetadata: {
     title: `cumatron`,
     description: `cumatron recitando poemas en el vacío`,
@@ -39,4 +39,4 @@ module.exports = {
       },
     },
   ],
-}
+};

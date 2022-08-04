@@ -30,7 +30,7 @@ function Text({ children, ...props }) {
 }
 
 function Sky(props) {
-  const texture = useTexture("/cumatron/gcenter360_sm.jpg");
+  const texture = useTexture("/gcenter360_sm.jpg");
   return (
     <mesh {...props}>
       <sphereBufferGeometry attach="geometry" args={[-500, 8, 8]} />
@@ -40,7 +40,7 @@ function Sky(props) {
 }
 
 function Planet(props) {
-  const texture = useTexture("/cumatron/ceres.jpg");
+  const texture = useTexture("/ceres.jpg");
   return (
     <mesh {...props}>
       <sphereBufferGeometry attach="geometry" args={[5, 8, 8]} />
@@ -50,7 +50,7 @@ function Planet(props) {
 }
 
 function Skull(props) {
-  const { nodes, materials } = useGLTF("/cumatron/skull/skull.gltf");
+  const { nodes, materials } = useGLTF("/skull/skull.gltf");
   return (
     <mesh {...props} castShadow receiveShadow material={materials.Material} geometry={nodes.Cube_Skul_0.geometry} />
   );
@@ -58,7 +58,7 @@ function Skull(props) {
 
 function PlaneIcon(props) {
   const [hover, setHover] = useState(false);
-  const texture = useTexture("/cumatron/pdf-icon.png");
+  const texture = useTexture("/pdf-icon.png");
   const ref = useRef();
   useFrame(({ clock }) => {
     if (hover) {
@@ -84,7 +84,7 @@ function PlaneIcon(props) {
       args={[1, 0.9566666666666667]}
       onClick={(e) => {
         e.stopPropagation();
-        navigate("/cumatron/book");
+        navigate("/book");
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
@@ -101,7 +101,7 @@ function PlaneIcon(props) {
 }
 
 function Cumi(props) {
-  const { nodes, materials } = useGLTF("/cumatron/cumi/cumi.gltf");
+  const { nodes, materials } = useGLTF("/cumi/cumi.gltf");
 
   const animateProps = useSpring({
     door1: props.open ? [0, 1.6 + Math.random(), 0] : [0, 0, 0],
@@ -131,7 +131,7 @@ function Cumi(props) {
   );
 }
 // function SpriteIcon(props) {
-//   const texture = useTexture("/cumatron/pdf-icon.png");
+//   const texture = useTexture("/pdf-icon.png");
 //   return (
 //     <sprite {...props}>
 //       <spriteMaterial attach="material" map={texture} rotation={0.3} />
