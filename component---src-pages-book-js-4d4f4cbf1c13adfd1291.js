@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{JQ6S:function(e,t,n){"use strict";n.r(t);var a=n("q1tI"),o=n.n(a),r=n("vrFN"),i=n("Bl7J");t.default=function(){return o.a.createElement(i.a,null,o.a.createElement(r.a,{title:"dame un pdf"}),o.a.createElement("iframe",{title:"cumatron book",src:"/.netlify/functions/book",style:{border:"none",height:"100%",width:"100%"}}))}}}]);
+//# sourceMappingURL=component---src-pages-book-js-4d4f4cbf1c13adfd1291.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{DJCp:function(e,n,t){"use strict";t.r(n),t.d(n,"query",(function(){return i}));var r=t("q1tI"),a=t.n(r),l=t("vrFN"),u=t("Bl7J");n.default=function(e){var n=e.data;return a.a.createElement(u.a,null,a.a.createElement(l.a,{title:"Friendz"}),a.a.createElement("pre",null,JSON.stringify(n,null,2)))};var i="1207687356"}}]);
+//# sourceMappingURL=component---src-pages-friendz-js-51e9d7394bd229f0bbb4.js.map
